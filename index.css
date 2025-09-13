@@ -1,0 +1,526 @@
+/*
+ * Name: Fluentshin
+ * Version: 1.0 <- I'll probably forget to change this after 2 releases or so lol
+ * Made by: Zortex
+ */
+
+
+/* Resizing the volume Slider based on window width */
+@media screen and (width >=1800px) {
+    .fs-playerbar-module-right-grid-item .fs-playerbar-slider-module-root {
+        width: calc(10rem * var(--mantine-scale)) !important;
+    }
+}
+
+@media screen and (width >=1000px) and (width < 1800px) {
+    .fs-playerbar-module-right-grid-item .fs-playerbar-slider-module-root {
+        width: calc(8rem * var(--mantine-scale)) !important;
+    }
+}
+
+@media screen and (width >=950px) and (width < 1100px) {
+    .fs-playerbar-module-right-grid-item .fs-playerbar-slider-module-root {
+        width: calc(7rem * var(--mantine-scale)) !important;
+    }
+}
+
+/* -------------------------- Full Screen Player --------------------------------------- */
+
+/* Rounding the album cover */
+.full-screen-player-image {
+    border-bottom-left-radius: 17px;
+    border-bottom-right-radius: 17px;
+    border-top-right-radius: 17px;
+    border-top-left-radius: 17px;
+}
+
+/* Resetting the positioning when hovering the queue element*/
+.fs-full-screen-player-module-container .full-screen-player-queue-container:hover {
+    flex-grow: 1;
+    right: initial;
+    top: initial;
+    position: relative;
+    margin-bottom: initial;
+    margin-top: initial;
+    height: initial;
+    width: initial;
+}
+
+/* Setting the grow of the album cover element to 1 so it uses the whole width */
+.full-screen-player-image-container {
+    flex-grow: 1;
+}
+
+
+/* Rounding the edges of the queue element */
+.fs-full-screen-player-queue-module-grid-container:hover::before {
+    border-radius: 20px;
+    opacity: var(--opacity, 1);
+    height: 100%;
+    width: 100%;
+    z-index: unset;
+    border-right-color: initial;
+    border-right-style: initial;
+    border-right-width: initial;
+    border-bottom-color: initial;
+    border-bottom-style: initial;
+    border-bottom-width: initial;
+    border-top-color: initial;
+    border-top-style: initial;
+    border-top-width: initial;
+    margin-right: initial;
+}
+
+/* Removing elements when not hovering the right button in fullscreen */
+.fs-full-screen-player-queue-module-grid-container:not(:hover) * {
+    display: none;
+}
+
+/* Right button in fullscreen player */
+.fs-full-screen-player-queue-module-grid-container:not(:hover)::before {
+    opacity: 1 !important;
+    border-radius: 20px;
+    padding: 6px;
+    z-index: 201;
+    content: "";
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAm0lEQVRIS8WVsRGAIBAE+cQqgCrNDLQBq6QQFGZkQFD8mT8khl0u+D9S4ENgvvokcM6t3vvJWrtwP9QVBPgJ3QKYiHat9cyRvApyeIAaY7ofussfH0jAY+pWXCl4UyAJrwTS8EKAgCcBCh4FSPgYQbAgU6Q5QEmKQUNIqkmWloxfFddukkry37puJREvnFwCq0xOPbbusiuQKzwAAtNYGbFR4UMAAAAASUVORK5CYII=) !important;
+    background-repeat: no-repeat;
+    background-position: calc(50% + 5px) center;
+}
+
+/* Resizing the queue */
+.fs-full-screen-player-module-container .full-screen-player-queue-container {
+    transition-property: width;
+    transition-delay: 0s;
+    transition-timing-function: ease;
+    transition-duration: 2s;
+    transition-behavior: normal;
+    margin-bottom: auto;
+    margin-top: auto;
+    height: 70px;
+    width: 70px;
+    right: 2rem;
+    top: calc(50% - 25px);
+    position: absolute;
+}
+
+/* Setting the full screen container to flex for positioning elements */
+.fs-full-screen-player-module-responsive-container {
+    flex-direction: row;
+    display: flex;
+}
+
+/* Adding a top margin of the full screen player */
+#default-layout .fs-full-screen-player-module-responsive-container {
+    margin-top: 2rem;
+}
+
+/* Fixing the padding of the full screen player content */
+#default-layout .fs-full-screen-player-module-container {
+    padding-left: 2rem !important;
+    padding-bottom: 7rem !important;
+    padding-right: 2rem !important;
+    padding-top: 1rem !important;
+    height: 100vh !important;
+}
+
+/* ----------------------------- Player Bar ------------------------------- */
+
+/* Removing the "Preview Button" on on the album cover (bottom left) */
+#player-bar ._image_ly86j_1 button,
+#player-bar .fs-left-controls-module-image-wrapper button {
+    display: none;
+}
+
+/* Repositioning the player bar to make it look "floating" */
+#player-bar {
+    margin-right: 1rem;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    width: calc(100% - 2rem);
+    display: flex;
+    bottom: 0px;
+    position: absolute;
+}
+
+/* ---------------------------- Drawer Queue ------------------------------ */
+
+/* Fixing background colors for the glass effect */
+#drawer-queue *,
+.fs-context-menu-module-container *,
+.fs-popover-module-dropdown *,
+.fs-dropdown-menu-module-menu-dropdown * {
+    --ag-header-background-color: unset;
+    --ag-odd-row-background-color: unset;
+    --ag-background-color: unset;
+}
+
+/* Fixing background colors for the glass effect */
+#drawer-queue>div>div {
+    background-color: unset;
+    background-clip: unset;
+    background-origin: unset;
+    background-attachment: unset;
+    background-repeat: unset;
+    background-size: unset;
+    background-position-y: unset;
+    background-position-x: unset;
+    background-image: unset;
+    border-bottom-left-radius: unset;
+    border-bottom-right-radius: unset;
+    border-top-right-radius: unset;
+    border-top-left-radius: unset;
+}
+
+/* -------------------------------- Left Sidebar ------------------------------- */
+
+/* Fixing background of the sidebar for the glass effect */
+#left-sidebar .fs-sidebar-module-accordion-content,
+#left-sidebar .fs-accordion-module-panel,
+.fs-main-content-module-sidebar-expanded #sidebar {
+    background: none;
+}
+
+/* Resizing the left sidebar to match the card layout */
+#sidebar {
+    max-height: calc(100vh - 8rem);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    /* Fixing the sidebar z index for artist page*/
+    z-index: 10;
+    border-right: unset;
+}
+
+/* Fixing the size of the sidenav size changer */
+#sidebar .fs-resize-handle-module-handle-right,
+#sidebar .fs-resize-handle-module-handle-right::before {
+    max-height: calc(100vh - 10rem);
+    margin-top: 1rem;
+}
+
+/* Fixing the back and forward arrow positions on a collapsed sidebar */
+#default-layout .fs-collapsed-sidebar-module-sidebar-container>div>div:first-child {
+    justify-content: center;
+}
+
+/* -------------------------------- Right Sidebar ------------------------------- */
+
+/* Resizing the right sidebar to match the card layout */
+#sidebar-queue {
+    max-height: calc(-8rem + 100vh);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: -1rem;
+    /* Genius idea, for whatever reason does margin right not work */
+}
+
+#sidebar-queue *,
+#sidebar-queue * {
+    --ag-header-background-color: unset;
+    --ag-background-color: unset;
+    --ag-odd-row-background-color: unset
+}
+
+/* ---------------------------- Header (Page Title) ------------------------------*/
+
+/* Fixing positioning of the header*/
+#main-content main .fs-page-header-module-header {
+    /* margin: 1rem 1rem 0 1rem; */
+    margin-right: 0rem;
+    min-height: 4rem;
+}
+
+.fs-library-header-bar-module-play-button-container {
+    margin-left: 1rem;
+}
+
+.fs-page-header-module-container {
+    padding: 0rem 0rem 0 1rem;
+    height: 5rem;
+}
+
+.fs-animated-page-module-animated-page>.mantine-Flex-root,
+.fs-animated-page-module-animated-page>.mantine-Stack-root {
+    padding-right: 1rem;
+    /* margin-right: 1rem; */
+}
+
+
+.fs-animated-page-module-animated-page:has(.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container) .fs-page-header-module-header {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+
+/* Hiding the background image of the main title (used for the glass effect to work)*/
+#main-content main .fs-page-header-module-background-image,
+#main-content main .fs-page-header-module-background-image-overlay {
+    opacity: 0;
+}
+
+/* Fixing the padding of the main header */
+.fs-library-header-bar-module-header-container {
+    padding: 0 0 0 1rem;
+}
+
+/*Fixing the right margin of the search box */
+#main-content main .fs-page-header-module-title-wrapper .mantine-Group-root:has(.fs-text-input-module-root) {
+    margin-right: 1rem;
+}
+
+/* Fixing the width of the search box */
+#main-content main .fs-page-header-module-title-wrapper .mantine-Group-root>.fs-text-input-module-root {
+    width: unset !important;
+}
+
+/* Fixing the size of the "Top songs" header*/
+.fs-library-header-bar-module-header-container:has(.fs-library-header-bar-module-play-button-container) {
+    padding: 0;
+}
+
+.fs-page-header-module-header:has(.fs-library-header-bar-module-play-button-container) {
+    margin: 0;
+}
+
+
+/* ---------------------------- Main Content ------------------------------------*/
+
+/* Fixing height of the main content */
+main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container {
+    margin: 0rem 1rem 0 1rem;
+    max-height: calc(100vh - 16rem);
+}
+
+/* fixing padding of the main content card */
+main.fs-animated-page-module-animated-page>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container>div>div {
+    padding: 1rem;
+}
+
+/* Fixing the background color of the main table */
+main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container * {
+    --ag-header-background-color: unset;
+    --ag-background-color: unset;
+    --ag-odd-row-background-color: unset
+}
+
+/* Filter panel */
+main>div>.fs-filter-bar-module-filter-bar {
+    margin: 0rem 0rem 0rem 1rem;
+
+    /* Fixing the box shadow of the glass effect */
+    /* border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-left-radius: unset;
+    border-bottom-right-radius: unset; */
+    border-radius: unset;
+    box-shadow: unset;
+}
+
+/* Fixing the round corners of the main content */
+main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container {
+    border-top-left-radius: unset;
+    border-top-right-radius: unset;
+}
+
+/* Fixing main content width when the right sidebar is open */
+.fs-main-content-module-right-expanded main {
+    width: calc(100% - 1rem);
+}
+
+/* Fixing bottom margin for main content to align with sidenav */
+#main-content {
+    margin-bottom: 1rem;
+}
+
+.fs-animated-page-module-animated-page {
+    max-height: calc(100vh - 8rem);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+}
+
+/* Fixing the margin of smart playlist query editors -> needs to be complicated or will otherwise destroy normal playlist page */
+main:has(.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container:last-child)>div:nth-child(2):not(:last-child)>div{
+    padding: 1rem !important;
+    margin: 0 1rem;
+    border-radius: unset;
+    box-shadow: unset;
+    width: unset !important;
+}
+
+
+/* ----------------------------------- Settings Page --------------------------------------- */
+/* Fixing the padding of the settings panel */
+main>div>div:has(.fs-tabs-module-root){
+    padding: 1rem;
+    margin: 1rem 1rem 0 1rem;
+    width: calc(100% - 1rem) !important;
+    overflow: hidden;
+}
+
+
+main>div>div:has(.fs-tabs-module-root) .fs-tabs-module-panel{
+    overflow-y: scroll;
+}
+
+/* ----------------------------------- Artist Page --------------------------------------- */
+
+/* Hiding the top fade effect */
+.fs-library-header-module-background,
+.fs-library-header-module-background-overlay {
+    display: none;
+}
+
+/* Repositioning the smoother bootom fade effect */
+.fs-library-background-overlay-module-root {
+    left: 0;
+    top: 0;
+    position: fixed;
+    width: 100vw;
+    height: 40vh;
+}
+
+/* Removing background color from the song table */
+.fs-album-artist-detail-content-module-detail-container * {
+    --ag-background-color: none;
+    --ag-odd-row-background-color: none;
+}
+
+.fs-album-artist-detail-content-module-detail-container {
+    padding: 1rem;
+}
+
+.fs-album-artist-detail-content-module-detail-container .mantine-Grid-root {
+    padding: 1rem;
+}
+
+/* Fixing the height of the scroll area */
+main>.fs-native-scroll-area-module-scroll-area {
+    height: calc(100vh - 6rem);
+}
+
+/* ----------------------------------- Misc --------------------------------------- */
+
+/* Glass effect for certain elements */
+#drawer-queue,
+#sidebar-queue,
+#player-bar,
+.fs-main-content-module-sidebar-collapsed #sidebar,
+.fs-main-content-module-sidebar-expanded #left-sidebar,
+.fs-context-menu-module-container,
+.fs-popover-module-dropdown,
+.fs-dropdown-menu-module-menu-dropdown,
+#main-content main .fs-page-header-module-header,
+.fs-context-menu-module-context-menu-button:hover,
+.fs-dropdown-menu-module-menu-item:hover,
+main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container,
+main>div>.fs-filter-bar-module-filter-bar,
+.fs-album-artist-detail-content-module-detail-container .mantine-Grid-root,
+main>div>div:has(.fs-tabs-module-root),
+main>div:nth-child(2):not(:last-child)>div{
+    /* From https://css.glass */
+    background: rgba(0, 0, 0, 0.47058823529411764);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.1px);
+    -webkit-backdrop-filter: blur(8.1px);
+
+    background-clip: initial;
+    background-origin: initial;
+    background-attachment: initial;
+    background-repeat: initial;
+    background-size: initial;
+    background-position-y: initial;
+    background-position-x: initial;
+    background-image: initial;
+}
+
+
+/* Setting the genre badges to use the primary color as background and rounding them */
+.fs-badge-module-root {
+    background-color: var(--theme-colors-primary);
+    color: var(--theme-colors-foreground);
+    line-height: 1.2rem;
+    font-weight: 500;
+    font-size: 0.8rem;
+    padding-left: 0.5rem;
+    padding-bottom: 0.2rem;
+    padding-right: 0.5rem;
+    padding-top: 0.2rem;
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+    border-top-right-radius: 100px;
+    border-top-left-radius: 100px;
+}
+
+/* Rounding input fields*/
+.fs-text-input-module-root .mantine-Input-wrapper .fs-text-input-module-input,
+.fs-action-icon-module-root,
+.fs-select-module-input,
+.fs-number-input-module-input,
+.fs-color-input-module-input,
+.mantine-Popover-dropdown,
+.fs-multi-select-module-input,
+.fs-button-module-root {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+/* Rounding images of album covers on the player bar & main page */
+.fs-playerbar-module-container .fs-left-controls-module-image-wrapper .fs-left-controls-module-image .fs-image-module-unloader,
+.fs-poster-card-module-image-container,
+.fs-image-module-image {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+
+/* Fixing wrong background color of buttons */
+.fs-button-module-root {
+    background-color: transparent;
+}
+
+/* Fixing background colors of conext menus to not interfere with the glass effect */
+.fs-context-menu-module-context-menu-button:not(:hover) {
+    background-color: unset !important;
+    background-clip: unset !important;
+    background-origin: unset !important;
+    background-attachment: unset !important;
+    background-repeat: unset !important;
+    background-size: unset !important;
+    background-position-y: unset !important;
+    background-position-x: unset !important;
+    background-image: unset !important;
+}
+
+/* Fixing the mouse cursor when hovering the genre badges on the home top section */
+.fs-feature-carousel-module-carousel .fs-badge-module-root:hover {
+    cursor: pointer;
+}
+
+/* Fixing playlist bottom padding (right static sidenav) */
+#sidebar-queue .fs-virtual-grid-wrapper-module-virtual-grid-container .fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container .fs-virtual-table-module-table-wrapper .ag-root-wrapper .ag-root-wrapper-body .ag-body-viewport {
+    padding-bottom: 100px;
+}
+
+
+/* Setting the default background for the page */
+body,
+html {
+    background: none;
+}
+
+/* Fixing the height of the page */
+body>div:not(#root) {
+    height: 100%;
+}
