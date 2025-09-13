@@ -13,6 +13,9 @@ Modern looking skin for feishin
 Home
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/d867d7ad-6da1-42d3-b3bf-ee7ec07e3291" />
 
+Example Queue 
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/96f03918-8ac5-4f1a-af21-36b0536724c0" />
+
 Albums
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ba2a2aff-22c5-4bfc-beae-89027a61441f" />
 
