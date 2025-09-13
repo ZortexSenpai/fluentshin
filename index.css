@@ -1,6 +1,6 @@
 /*
  * Name: Fluentshin
- * Version: 1.0 <- I'll probably forget to change this after 2 releases or so lol
+ * Version: 1.1 <- I'll probably forget to change this after 2 releases or so lol
  * Made by: Zortex
  */
 
@@ -150,6 +150,13 @@
 
 /* ---------------------------- Drawer Queue ------------------------------ */
 
+/* Fixing the position of the drawer queue */
+#drawer-queue{
+    height: calc(100vh - 14rem) !important;
+    right: 1rem !important;
+    top: 7rem !important;
+}
+
 /* Fixing background colors for the glass effect */
 #drawer-queue *,
 .fs-context-menu-module-container *,
@@ -162,7 +169,7 @@
 
 /* Fixing background colors for the glass effect */
 #drawer-queue>div>div {
-    background-color: unset;
+    background-color: unset !important;
     background-clip: unset;
     background-origin: unset;
     background-attachment: unset;
@@ -221,10 +228,11 @@
 }
 
 #sidebar-queue *,
-#sidebar-queue * {
+#sidebar-queue {
+    background-color: unset;
     --ag-header-background-color: unset;
     --ag-background-color: unset;
-    --ag-odd-row-background-color: unset
+    --ag-odd-row-background-color: unset;
 }
 
 /* ---------------------------- Header (Page Title) ------------------------------*/
