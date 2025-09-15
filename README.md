@@ -47,8 +47,9 @@ Settings
 2. Paste the contents in the Feishin custom CSS settings. You can find it under: `Settings` -> `Àdvanced` -> `Custom CSS`
 
 ## Roadmap
-- Style the main page
-- Redesign the search bar in the top left corner 
+- [x] Style the main page
+- [ ] Redesign the search bar in the top left corner
+- [ ] Make a bigger hover area for the full screen player to open the right panel
 
 ## Additional
 The skin is currently under development and will be updated occasionally when I'm feeling like it. If you have new ideas feel free to open a `[Feature Request]` in `Issues`.
