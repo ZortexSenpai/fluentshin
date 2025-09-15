@@ -4,10 +4,21 @@ Modern looking skin for feishin
 
 
 ## Table of Contents
+* [Works on](#works-on)
 * [Example screenshots](#example-screenshots)
 * [How to install](#how-to-install)
 * [Roadmap](#roadmap)
 * [Additional](#additional)
+* [Versioning](#versioning)
+
+## Works on
+|       | Version          | Notes                                      |
+| ----- | ---------------- | ------------------------------------------ |
+| - [x] | Windows          | Tested on Windows 11                       |
+| - [x] | Linux (AppImage) | Tested on Fedora (KDE) and CachyOS (Gnome) |
+| - [ ] | Docker           | Not tested                                 |
+| - [ ] | Browser Version  | Not Tested                                 |
+
 
 ## Example screenshots
 Home
@@ -41,3 +52,9 @@ Settings
 
 ## Additional
 The skin is currently under development and will be updated occasionally when I'm feeling like it. If you have new ideas feel free to open a `[Feature Request]` in `Issues`.
+
+## Versioning
+Major.Minor.Fix
+- Major -> Major changes to the skin
+- Minor -> Smaller changes / features (for example a single page)
+- Fix -> Smaller fixes to existing elements
