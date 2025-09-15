@@ -1,6 +1,5 @@
 /*
  * Name: Fluentshin
- * Version: 1.1 <- I'll probably forget to change this after 2 releases or so lol
  * Made by: Zortex
  */
 
@@ -151,7 +150,7 @@
 /* ---------------------------- Drawer Queue ------------------------------ */
 
 /* Fixing the position of the drawer queue */
-#drawer-queue{
+#drawer-queue {
     height: calc(100vh - 14rem) !important;
     right: 1rem !important;
     top: 7rem !important;
@@ -354,7 +353,7 @@ main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container {
 }
 
 /* Fixing the margin of smart playlist query editors -> needs to be complicated or will otherwise destroy normal playlist page */
-main:has(.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container:last-child)>div:nth-child(2):not(:last-child)>div{
+main:has(.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container:last-child)>div:nth-child(2):not(:last-child)>div {
     padding: 1rem !important;
     margin: 0 1rem;
     border-radius: unset;
@@ -362,10 +361,63 @@ main:has(.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container:last-
     width: unset !important;
 }
 
+/* ----------------------------------- Home Page --------------------------------------- */
+/* Adding a margin to the home page so it doesn't stick to the sides */
+main>div>div:has(div>.fs-feature-carousel-module-wrapper) {
+    margin: 0 1rem !important;
+}
+
+/* Sticking the carousel (image in the top of the homepage) to the top of the glass panel */
+main .fs-feature-carousel-module-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 16rem;
+    max-height: unset;
+}
+
+main .fs-feature-carousel-module-carousel{
+    height: 16rem;
+    min-height: unset;
+    max-height: unset;
+}
+
+
+/* Fixing the positioning of the caroussell items to be centered */
+main .fs-feature-carousel-module-wrapper>div>* {
+    align-items: center;
+}
+
+/* Fixing the positioning of the background image banner and setting a lower blur */
+main .fs-feature-carousel-module-wrapper .fs-feature-carousel-module-background-image {
+    width: 100%;
+    height: 100%;
+    filter: blur(12px);
+}
+
+/* Fixing the padding of the top element on the home page to be inline with other paddings */
+main>div>div>div:has(.fs-feature-carousel-module-wrapper) {
+    padding: 1rem !important;
+    padding-inline: unset !important;
+    margin-bottom: unset !important;
+}
+
+/* Fixing the top margin of the first div on the home page because of the absolute positioning */
+main>div>div>div:has(.fs-feature-carousel-module-wrapper)>.grid-carousel:first-of-type {
+    margin-top: 16rem;
+}
+
+/* Fixing the positioning of the next and previous buttons in the caroussel */
+main .fs-feature-carousel-module-wrapper .fs-feature-carousel-module-info-column>.mantine-Stack-root>div:has(button)>div{
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
+
 
 /* ----------------------------------- Settings Page --------------------------------------- */
 /* Fixing the padding of the settings panel */
-main>div>div:has(.fs-tabs-module-root){
+main>div>div:has(.fs-tabs-module-root) {
     padding: 1rem;
     margin: 1rem 1rem 0 1rem;
     width: calc(100% - 1rem) !important;
@@ -373,7 +425,7 @@ main>div>div:has(.fs-tabs-module-root){
 }
 
 
-main>div>div:has(.fs-tabs-module-root) .fs-tabs-module-panel{
+main>div>div:has(.fs-tabs-module-root) .fs-tabs-module-panel {
     overflow-y: scroll;
 }
 
@@ -431,7 +483,8 @@ main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container,
 main>div>.fs-filter-bar-module-filter-bar,
 .fs-album-artist-detail-content-module-detail-container .mantine-Grid-root,
 main>div>div:has(.fs-tabs-module-root),
-main>div:nth-child(2):not(:last-child)>div{
+main>div:nth-child(2):not(:last-child)>div,
+main>div>div:has(div>.fs-feature-carousel-module-wrapper) {
     /* From https://css.glass */
     background: rgba(0, 0, 0, 0.47058823529411764);
     border-radius: 16px;
