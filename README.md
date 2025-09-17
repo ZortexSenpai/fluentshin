@@ -21,24 +21,26 @@ Modern looking skin for feishin
 
 
 ## Example screenshots
-Home
+### Home
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/274b7a2f-4fb6-4ea2-aeeb-6739a04c0fca" />
 
-Example Queue 
+### Example Queue 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/cdb318db-8208-4305-b085-4a5070ba75fd" />
 
-
-Albums
+### Albums
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ba2a2aff-22c5-4bfc-beae-89027a61441f" />
 
-Tracks
+### Tracks
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9271d862-0284-4643-a935-8dad59257e9b" />
 
-Full Screen Player
+### Artist
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3485ceeb-5ca9-4565-ba2a-945585e813c8" />
+
+### Full Screen Player
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/04c61d89-e5ab-4e1e-95f0-920734382324" />
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3a7905ba-34c7-44c7-b470-63fe521fdf50" />
 
-Settings
+### Settings
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/0bf868b8-7b06-473e-86ce-9821fd881bd8" />
 
 
