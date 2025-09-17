@@ -195,6 +195,7 @@
 /* Resizing the left sidebar to match the card layout */
 #sidebar {
     max-height: calc(100vh - 8rem);
+    height: calc(100vh - 8rem);
     margin-top: 1rem;
     margin-bottom: 1rem;
     margin-left: 1rem;
@@ -219,15 +220,15 @@
 
 /* Resizing the right sidebar to match the card layout */
 #sidebar-queue {
-    max-height: calc(-8rem + 100vh);
+    max-height: calc(100vh - 8rem);
+    height: calc(100vh - 8rem);
     margin-top: 1rem;
     margin-bottom: 1rem;
-    margin-left: -1rem;
     /* Genius idea, for whatever reason does margin right not work */
+    margin-left: -1rem;
 }
 
-#sidebar-queue *,
-#sidebar-queue {
+#sidebar-queue * {
     background-color: unset;
     --ag-header-background-color: unset;
     --ag-background-color: unset;
@@ -326,7 +327,7 @@ main>div>.fs-filter-bar-module-filter-bar {
 
 /* Fixing main content width when the right sidebar is open */
 .fs-main-content-module-right-expanded main {
-    width: calc(100% - 1rem);
+    width: calc(100% - 3rem);
 }
 
 /* Fixing bottom margin for main content to align with sidenav */
