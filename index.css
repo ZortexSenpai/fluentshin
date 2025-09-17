@@ -248,20 +248,15 @@
 }
 
 .fs-page-header-module-container {
-    padding: 0rem 0rem 0 1rem;
+    padding: 0 !important;
     height: 5rem;
-}
-
-.fs-animated-page-module-animated-page>.mantine-Flex-root,
-.fs-animated-page-module-animated-page>.mantine-Stack-root {
-    padding-right: 1rem;
-    /* margin-right: 1rem; */
 }
 
 
 .fs-animated-page-module-animated-page:has(.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container) .fs-page-header-module-header {
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
+    box-shadow: unset !important;
 }
 
 
@@ -300,8 +295,10 @@
 
 /* Fixing height of the main content */
 main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container {
-    margin: 0rem 1rem 0 1rem;
     max-height: calc(100vh - 16rem);
+    /* Fixing the round corners of the main content */
+    border-top-left-radius: unset;
+    border-top-right-radius: unset;
 }
 
 /* fixing padding of the main content card */
@@ -318,8 +315,6 @@ main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container * {
 
 /* Filter panel */
 main>div>.fs-filter-bar-module-filter-bar {
-    margin: 0rem 0rem 0rem 1rem;
-
     /* Fixing the box shadow of the glass effect */
     /* border-top-left-radius: 16px;
     border-top-right-radius: 16px;
@@ -327,12 +322,6 @@ main>div>.fs-filter-bar-module-filter-bar {
     border-bottom-right-radius: unset; */
     border-radius: unset;
     box-shadow: unset;
-}
-
-/* Fixing the round corners of the main content */
-main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container {
-    border-top-left-radius: unset;
-    border-top-right-radius: unset;
 }
 
 /* Fixing main content width when the right sidebar is open */
@@ -350,22 +339,19 @@ main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container {
     margin-top: 1rem;
     margin-bottom: 1rem;
     margin-right: 1rem;
+    width: calc(100% - 2rem);
 }
 
 /* Fixing the margin of smart playlist query editors -> needs to be complicated or will otherwise destroy normal playlist page */
 main:has(.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container:last-child)>div:nth-child(2):not(:last-child)>div {
     padding: 1rem !important;
-    margin: 0 1rem;
+    margin: 0;
     border-radius: unset;
     box-shadow: unset;
     width: unset !important;
 }
 
 /* ----------------------------------- Home Page --------------------------------------- */
-/* Adding a margin to the home page so it doesn't stick to the sides */
-main>div>div:has(div>.fs-feature-carousel-module-wrapper) {
-    margin: 0 1rem !important;
-}
 
 /* Sticking the carousel (image in the top of the homepage) to the top of the glass panel */
 main .fs-feature-carousel-module-wrapper {
@@ -376,7 +362,7 @@ main .fs-feature-carousel-module-wrapper {
     max-height: unset;
 }
 
-main .fs-feature-carousel-module-carousel{
+main .fs-feature-carousel-module-carousel {
     height: 16rem;
     min-height: unset;
     max-height: unset;
@@ -408,7 +394,7 @@ main>div>div>div:has(.fs-feature-carousel-module-wrapper)>.grid-carousel:first-o
 }
 
 /* Fixing the positioning of the next and previous buttons in the caroussel */
-main .fs-feature-carousel-module-wrapper .fs-feature-carousel-module-info-column>.mantine-Stack-root>div:has(button)>div{
+main .fs-feature-carousel-module-wrapper .fs-feature-carousel-module-info-column>.mantine-Stack-root>div:has(button)>div {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
@@ -416,12 +402,20 @@ main .fs-feature-carousel-module-wrapper .fs-feature-carousel-module-info-column
 
 
 /* ----------------------------------- Settings Page --------------------------------------- */
+
+/* Fixing the bottom border radius of the settings title */
+main:has(.fs-tabs-module-root) .fs-page-header-module-header {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    box-shadow: unset !important;
+}
+
 /* Fixing the padding of the settings panel */
 main>div>div:has(.fs-tabs-module-root) {
     padding: 1rem;
-    margin: 1rem 1rem 0 1rem;
-    width: calc(100% - 1rem) !important;
     overflow: hidden;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 
@@ -430,6 +424,14 @@ main>div>div:has(.fs-tabs-module-root) .fs-tabs-module-panel {
 }
 
 /* ----------------------------------- Artist Page --------------------------------------- */
+
+/* fixing header height */
+div:has(.fs-album-artist-detail-content-module-content-container)>div>.fs-library-header-module-library-header {
+    padding: 1rem 1rem 2rem 1rem;
+    height: 20rem;
+    min-height: unset;
+    max-height: unset;
+}
 
 /* Hiding the top fade effect */
 .fs-library-header-module-background,
@@ -456,14 +458,51 @@ main>div>div:has(.fs-tabs-module-root) .fs-tabs-module-panel {
     padding: 1rem;
 }
 
-.fs-album-artist-detail-content-module-detail-container .mantine-Grid-root {
-    padding: 1rem;
-}
+
 
 /* Fixing the height of the scroll area */
 main>.fs-native-scroll-area-module-scroll-area {
     height: calc(100vh - 6rem);
 }
+
+/* ----------------------------------- Album Page --------------------------------------- */
+
+.fs-album-detail-content-module-content-container {
+    /* margin: 0 1rem; */
+    padding: 1rem;
+}
+
+/* fixing header height */
+div:has(.fs-album-detail-content-module-content-container)>div>.fs-library-header-module-library-header {
+    padding: 1rem 1rem 2rem 1rem;
+    height: 20rem;
+    min-height: unset;
+    max-height: unset;
+}
+
+/* Fixing the padding of the details */
+.fs-album-detail-content-module-detail-container {
+    padding: 0;
+}
+
+
+/* hiding unused fade effect */
+.fs-album-detail-content-module-content-container .fs-library-background-overlay-module-root{
+    display: none;
+}
+
+
+/* Fixing the background color of the tables */
+.fs-album-detail-content-module-content-container * {
+    --ag-background-color: none;
+    --ag-odd-row-background-color: none;
+}
+
+/* Fixing the background color of the table header */
+.fs-album-detail-content-module-content-container .ag-header {
+    background-color: unset;
+}
+
 
 /* ----------------------------------- Misc --------------------------------------- */
 
@@ -481,10 +520,11 @@ main>.fs-native-scroll-area-module-scroll-area {
 .fs-dropdown-menu-module-menu-item:hover,
 main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container,
 main>div>.fs-filter-bar-module-filter-bar,
-.fs-album-artist-detail-content-module-detail-container .mantine-Grid-root,
+.fs-album-artist-detail-content-module-detail-container,
 main>div>div:has(.fs-tabs-module-root),
 main>div:nth-child(2):not(:last-child)>div,
-main>div>div:has(div>.fs-feature-carousel-module-wrapper) {
+main>div>div:has(div>.fs-feature-carousel-module-wrapper),
+.fs-album-detail-content-module-content-container {
     /* From https://css.glass */
     background: rgba(0, 0, 0, 0.47058823529411764);
     border-radius: 16px;
@@ -584,4 +624,10 @@ html {
 /* Fixing the height of the page */
 body>div:not(#root) {
     height: 100%;
+}
+
+/* Fixing the margin of the main content */
+.fs-animated-page-module-animated-page {
+    margin-left: 1rem;
+    border-radius: 16px;
 }
