@@ -28,13 +28,15 @@ Modern looking skin for feishin
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/cdb318db-8208-4305-b085-4a5070ba75fd" />
 
 ### Albums
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ba2a2aff-22c5-4bfc-beae-89027a61441f" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e18448cc-1ba6-4fe0-9e15-b03c3772db74" />
+
 
 ### Tracks
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9271d862-0284-4643-a935-8dad59257e9b" />
 
 ### Artist
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3485ceeb-5ca9-4565-ba2a-945585e813c8" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e152357e-56fa-4757-9973-063b6905e147" />
+
 
 ### Full Screen Player
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/04c61d89-e5ab-4e1e-95f0-920734382324" />
