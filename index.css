@@ -434,21 +434,6 @@ div:has(.fs-album-artist-detail-content-module-content-container)>div>.fs-librar
     max-height: unset;
 }
 
-/* Hiding the top fade effect */
-.fs-library-header-module-background,
-.fs-library-header-module-background-overlay {
-    display: none;
-}
-
-/* Repositioning the smoother bootom fade effect */
-.fs-library-background-overlay-module-root {
-    left: 0;
-    top: 0;
-    position: fixed;
-    width: 100vw;
-    height: 40vh;
-}
-
 /* Removing background color from the song table */
 .fs-album-artist-detail-content-module-detail-container * {
     --ag-background-color: none;
@@ -457,6 +442,8 @@ div:has(.fs-album-artist-detail-content-module-content-container)>div>.fs-librar
 
 .fs-album-artist-detail-content-module-detail-container {
     padding: 1rem;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
 }
 
 
@@ -471,6 +458,8 @@ main>.fs-native-scroll-area-module-scroll-area {
 .fs-album-detail-content-module-content-container {
     /* margin: 0 1rem; */
     padding: 1rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 /* fixing header height */
@@ -487,12 +476,6 @@ div:has(.fs-album-detail-content-module-content-container)>div>.fs-library-heade
 }
 
 
-/* hiding unused fade effect */
-.fs-album-detail-content-module-content-container .fs-library-background-overlay-module-root{
-    display: none;
-}
-
-
 /* Fixing the background color of the tables */
 .fs-album-detail-content-module-content-container * {
     --ag-background-color: none;
@@ -504,6 +487,12 @@ div:has(.fs-album-detail-content-module-content-container)>div>.fs-library-heade
     background-color: unset;
 }
 
+/* Fixing the positioning of the bottom fade effect */
+.fs-album-detail-content-module-content-container .fs-library-background-overlay-module-root{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 
 /* ----------------------------------- Misc --------------------------------------- */
 
