@@ -4,6 +4,22 @@
  */
 
 
+/* -------------------------- Overrides ---------------------------------------------- */
+
+
+/* Hide the "right side" button completely in the fullscreen view */
+/* Useful if you use the "detached" queue & don't use the other things (related, lyrics & visualizer), since it is also visible in the fullscreen */
+/*
+.fs-full-screen-player-queue-module-grid-container,
+.fs-full-screen-player-queue-module-grid-container:not(:hover)::before{
+    display: none !important;
+}
+*/
+
+
+
+
+
 /* Resizing the volume Slider based on window width */
 @media screen and (width >=1800px) {
     .fs-playerbar-module-right-grid-item .fs-playerbar-slider-module-root {
@@ -79,17 +95,22 @@
 .fs-full-screen-player-queue-module-grid-container:not(:hover)::before {
     opacity: 1 !important;
     border-radius: 20px;
-    padding: 6px;
     z-index: 201;
     content: "";
     width: 50px;
     height: 50px;
     opacity: 0;
     transition: opacity 0.3s ease;
-
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAm0lEQVRIS8WVsRGAIBAE+cQqgCrNDLQBq6QQFGZkQFD8mT8khl0u+D9S4ENgvvokcM6t3vvJWrtwP9QVBPgJ3QKYiHat9cyRvApyeIAaY7ofussfH0jAY+pWXCl4UyAJrwTS8EKAgCcBCh4FSPgYQbAgU6Q5QEmKQUNIqkmWloxfFddukkry37puJREvnFwCq0xOPbbusiuQKzwAAtNYGbFR4UMAAAAASUVORK5CYII=) !important;
+    content: "<";
+    font-size: 3rem;
+    color: var(--theme-colors-foreground);
+    background-color: var(--theme-colors-surface);
+    text-align: center;
+    padding-top: 17px;
+    /* Old variant */
+    /* background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAm0lEQVRIS8WVsRGAIBAE+cQqgCrNDLQBq6QQFGZkQFD8mT8khl0u+D9S4ENgvvokcM6t3vvJWrtwP9QVBPgJ3QKYiHat9cyRvApyeIAaY7ofussfH0jAY+pWXCl4UyAJrwTS8EKAgCcBCh4FSPgYQbAgU6Q5QEmKQUNIqkmWloxfFddukkry37puJREvnFwCq0xOPbbusiuQKzwAAtNYGbFR4UMAAAAASUVORK5CYII=) !important;
     background-repeat: no-repeat;
-    background-position: calc(50% + 5px) center;
+    background-position: calc(50% + 5px) center; */
 }
 
 /* Resizing the queue */
@@ -121,9 +142,9 @@
 
 /* Fixing the padding of the full screen player content */
 #default-layout .fs-full-screen-player-module-container {
-    padding-left: 2rem !important;
-    padding-bottom: 7rem !important;
-    padding-right: 2rem !important;
+    padding-left: 1rem !important;
+    padding-bottom: 9rem !important;
+    padding-right: 1rem !important;
     padding-top: 1rem !important;
     height: 100vh !important;
 }
@@ -151,9 +172,12 @@
 
 /* Fixing the position of the drawer queue */
 #drawer-queue {
-    height: calc(100vh - 14rem) !important;
+    /* height: calc(100vh - 14rem) !important;
+    top: 7rem !important; */
+    z-index: 201 !important;
+    height: calc(100vh - 10rem) !important;
+    top: 1rem !important;
     right: 1rem !important;
-    top: 7rem !important;
 }
 
 /* Fixing background colors for the glass effect */
@@ -194,7 +218,7 @@
 
 /* Resizing the left sidebar to match the card layout */
 #sidebar {
-    max-height: calc(100vh - 8rem);
+    max-height: calc(100vh - 10rem);
     height: calc(100vh - 8rem);
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -220,7 +244,7 @@
 
 /* Resizing the right sidebar to match the card layout */
 #sidebar-queue {
-    max-height: calc(100vh - 8rem);
+    max-height: calc(100vh - 10rem);
     height: calc(100vh - 8rem);
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -314,6 +338,10 @@ main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container * {
     --ag-odd-row-background-color: unset
 }
 
+.ag-header {
+    background: unset;
+}
+
 /* Filter panel */
 main>div>.fs-filter-bar-module-filter-bar {
     /* Fixing the box shadow of the glass effect */
@@ -330,13 +358,20 @@ main>div>.fs-filter-bar-module-filter-bar {
     width: calc(100% - 3rem);
 }
 
-/* Fixing bottom margin for main content to align with sidenav */
+/* Removing unneccessary background color from main content -> is set in  #default-layout*/
 #main-content {
-    margin-bottom: 1rem;
+    background: unset;
+    height: 100%;
 }
 
+/* Adding the default background color for the main page */
+#default-layout {
+    background-color: var(--theme-colors-background);
+}
+
+/* Defining the size of the main page */
 .fs-animated-page-module-animated-page {
-    max-height: calc(100vh - 8rem);
+    max-height: calc(100vh - 10rem);
     margin-top: 1rem;
     margin-bottom: 1rem;
     margin-right: 1rem;
@@ -488,11 +523,23 @@ div:has(.fs-album-detail-content-module-content-container)>div>.fs-library-heade
 }
 
 /* Fixing the positioning of the bottom fade effect */
-.fs-album-detail-content-module-content-container .fs-library-background-overlay-module-root{
+.fs-album-detail-content-module-content-container .fs-library-background-overlay-module-root {
     position: absolute;
     top: 0;
     left: 0;
 }
+
+/* Fixing the header & filter bar when scrolling down */
+main:has(div>.fs-album-detail-content-module-content-container):has(.ag-header.ag-header-window-bar) .fs-page-header-module-header {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.ag-header.ag-header-window-bar {
+    margin-top: -1rem;
+}
+
+
 
 /* ----------------------------------- Misc --------------------------------------- */
 
@@ -503,20 +550,22 @@ div:has(.fs-album-detail-content-module-content-container)>div>.fs-library-heade
 .fs-main-content-module-sidebar-collapsed #sidebar,
 .fs-main-content-module-sidebar-expanded #left-sidebar,
 .fs-context-menu-module-container,
+.fs-animated-page-module-animated-page,
 .fs-popover-module-dropdown,
 .fs-dropdown-menu-module-menu-dropdown,
-#main-content main .fs-page-header-module-header,
+/* Various headers */
+main:has(div>.fs-feature-carousel-module-wrapper) .fs-page-header-module-header,
+main:has(div>.fs-library-header-module-library-header) .fs-page-header-module-header,
+main:has(div>.fs-album-detail-content-module-content-container) .fs-page-header-module-header,
+main:has(div>.fs-album-detail-content-module-content-container) .ag-header.ag-header-window-bar,
+
 .fs-context-menu-module-context-menu-button:hover,
 .fs-dropdown-menu-module-menu-item:hover,
-main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container,
-main>div>.fs-filter-bar-module-filter-bar,
-.fs-album-artist-detail-content-module-detail-container,
-main>div>div:has(.fs-tabs-module-root),
-main>div:nth-child(2):not(:last-child)>div,
-main>div>div:has(div>.fs-feature-carousel-module-wrapper),
-.fs-album-detail-content-module-content-container {
+main>div:nth-child(2):not(:last-child)>div
+    {
     /* From https://css.glass */
-    background: rgba(0, 0, 0, 0.47058823529411764);
+    /* fancy workaround so the bg works with the built in varable to support light theme */
+    background-color: color-mix(in srgb, var(--theme-colors-background-alternate) 47%, transparent) !important;
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8.1px);
@@ -535,8 +584,8 @@ main>div>div:has(div>.fs-feature-carousel-module-wrapper),
 
 /* Setting the genre badges to use the primary color as background and rounding them */
 .fs-badge-module-root {
-    background-color: var(--theme-colors-primary);
-    color: var(--theme-colors-foreground);
+    color: var(--theme-colors-primary-contrast);
+    background-color: var(--theme-colors-primary-filled);
     line-height: 1.2rem;
     font-weight: 500;
     font-size: 0.8rem;
