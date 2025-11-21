@@ -12,13 +12,13 @@ Modern looking skin for feishin
 * [Versioning](#versioning)
 
 ## Works on
-| Works  | Version          | Notes                                      |
-| ------ | ---------------- | ------------------------------------------ |
-|  Yes   | Windows          | Tested on Windows 11                       |
-|  Yes   | Linux (AppImage) | Tested on Fedora (KDE) and CachyOS (Gnome) |
-|        | Docker           | Not tested                                 |
-|        | Browser Version  | Not Tested                                 |
 
+| Works  | Version          | Notes                                                                                    |
+| ------ | ---------------- | ---------------------------------------------------------------------------------------- |
+|  Yes   | Windows          | Tested on Windows 11                                                                     |
+|  Yes   | Linux (AppImage) | Tested on Fedora (KDE) and CachyOS (Gnome)                                               |
+|  No    | Docker           | Not supported since the classes and ids of various elements are different                |
+|  No    | Browser Version  | Not supported since the classes and ids of various elements are different                |
 
 ## Example screenshots
 ### Home
