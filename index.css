@@ -49,6 +49,23 @@
     border-top-left-radius: 17px;
 }
 
+/* Fixing the background image position */
+.fs-full-screen-player-module-background-image-overlay {
+    position: fixed;
+}
+
+/* Fixing the top position of the background image */
+#default-layout:has(.fs-window-bar-module-windows-container) .fs-full-screen-player-module-background-image-overlay {
+    top: 2rem;
+}
+
+/* Fixing the top position of the background image */
+#default-layout:not(:has(.fs-window-bar-module-windows-container)) .fs-full-screen-player-module-background-image-overlay {
+    top: 0;
+}
+
+
+
 /* Resetting the positioning when hovering the queue element*/
 .fs-full-screen-player-module-container .full-screen-player-queue-container:hover {
     flex-grow: 1;
@@ -159,13 +176,12 @@
 
 /* Repositioning the player bar to make it look "floating" */
 #player-bar {
-    margin-right: 1rem;
     margin-left: 1rem;
-    margin-bottom: 1rem;
-    width: calc(100% - 2rem);
-    display: flex;
-    bottom: 0px;
-    position: absolute;
+    margin-right: 1rem;
+}
+
+#player-bar>.fs-playerbar-module-container {
+    width: 100%;
 }
 
 /* ---------------------------- Drawer Queue ------------------------------ */
@@ -175,10 +191,20 @@
     /* height: calc(100vh - 14rem) !important;
     top: 7rem !important; */
     z-index: 201 !important;
-    height: calc(100vh - 10rem) !important;
-    top: 1rem !important;
+    top: 0 !important;
     right: 1rem !important;
 }
+
+/* Fixing heights */
+#default-layout:has(.fs-window-bar-module-windows-container) #drawer-queue {
+    height: calc(100vh - 11rem) !important;
+}
+
+/* Fixing heights */
+#default-layout:not(:has(.fs-window-bar-module-windows-container)) #drawer-queue {
+    height: calc(100vh - 9rem) !important;
+}
+
 
 /* Fixing background colors for the glass effect */
 #drawer-queue *,
@@ -216,23 +242,31 @@
     background: none;
 }
 
-/* Resizing the left sidebar to match the card layout */
+/* Adding a margin to the left sidebar*/
 #sidebar {
-    max-height: calc(100vh - 10rem);
-    height: calc(100vh - 8rem);
-    margin-top: 1rem;
-    margin-bottom: 1rem;
     margin-left: 1rem;
-    /* Fixing the sidebar z index for artist page*/
-    z-index: 10;
-    border-right: unset;
+}
+
+/* fixing the max height */
+#default-layout:has(.fs-window-bar-module-windows-container) #sidebar {
+    max-height: calc(100vh - 11rem);
+}
+
+/* fixing the max height */
+#default-layout:not(:has(.fs-window-bar-module-windows-container)) #sidebar {
+    max-height: calc(100vh - 9rem);
+}
+
+
+/* Fixing the max height of the left sidebar */
+#left-sidebar {
+    max-height: calc(100vh - 9rem);
 }
 
 /* Fixing the size of the sidenav size changer */
 #sidebar .fs-resize-handle-module-handle-right,
 #sidebar .fs-resize-handle-module-handle-right::before {
     max-height: calc(100vh - 10rem);
-    margin-top: 1rem;
 }
 
 /* Fixing the back and forward arrow positions on a collapsed sidebar */
@@ -244,13 +278,20 @@
 
 /* Resizing the right sidebar to match the card layout */
 #sidebar-queue {
-    max-height: calc(100vh - 10rem);
-    height: calc(100vh - 8rem);
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    /* Genius idea, for whatever reason does margin right not work */
+    /* Margin right doesn't work for whatever reason */
     margin-left: -1rem;
 }
+
+/* Fixing heights */
+#default-layout:has(.fs-window-bar-module-windows-container) #sidebar-queue {
+    max-height: calc(100vh - 11rem);
+}
+
+/* Fixing heights */
+#default-layout:not(:has(.fs-window-bar-module-windows-container)) #sidebar-queue {
+    max-height: calc(100vh - 9rem);
+}
+
 
 #sidebar-queue * {
     background-color: unset;
@@ -345,37 +386,34 @@ main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container * {
 /* Filter panel */
 main>div>.fs-filter-bar-module-filter-bar {
     /* Fixing the box shadow of the glass effect */
-    /* border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    border-bottom-left-radius: unset;
-    border-bottom-right-radius: unset; */
     border-radius: unset;
     box-shadow: unset;
 }
 
 /* Fixing main content width when the right sidebar is open */
 .fs-main-content-module-right-expanded main {
-    width: calc(100% - 3rem);
+    width: calc(100% - 1rem);
 }
 
 /* Removing unneccessary background color from main content -> is set in  #default-layout*/
 #main-content {
     background: unset;
     height: 100%;
+    gap: 1rem;
 }
 
 /* Adding the default background color for the main page */
 #default-layout {
     background-color: var(--theme-colors-background);
+    gap: 1rem;
 }
 
-/* Defining the size of the main page */
-.fs-animated-page-module-animated-page {
-    max-height: calc(100vh - 10rem);
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    margin-right: 1rem;
-    width: calc(100% - 2rem);
+#default-layout:has(.fs-window-bar-module-windows-container) {
+    grid-template-rows: 2rem calc(-11rem + 100vh) 6rem;
+}
+
+#default-layout:not(:has(.fs-window-bar-module-windows-container)) {
+    grid-template-rows: 0 calc(-9rem + 100vh) 6rem;
 }
 
 /* Fixing the margin of smart playlist query editors -> needs to be complicated or will otherwise destroy normal playlist page */
@@ -560,9 +598,7 @@ main:has(div>.fs-album-detail-content-module-content-container) .fs-page-header-
 main:has(div>.fs-album-detail-content-module-content-container) .ag-header.ag-header-window-bar,
 
 .fs-context-menu-module-context-menu-button:hover,
-.fs-dropdown-menu-module-menu-item:hover,
-main>div:nth-child(2):not(:last-child)>div
-    {
+.fs-dropdown-menu-module-menu-item:hover {
     /* From https://css.glass */
     /* fancy workaround so the bg works with the built in varable to support light theme */
     background-color: color-mix(in srgb, var(--theme-colors-background-alternate) 47%, transparent) !important;
@@ -665,8 +701,7 @@ body>div:not(#root) {
     height: 100%;
 }
 
-/* Fixing the margin of the main content */
-.fs-animated-page-module-animated-page {
-    margin-left: 1rem;
-    border-radius: 16px;
+/* Fixing the height of the window bar */
+.fs-window-bar-module-windows-container {
+    height: 2rem;
 }
