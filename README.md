@@ -74,7 +74,7 @@ Modern looking skin for feishin
 ## How to install
 
 1. Copy all the contents of the [index.css](https://raw.githubusercontent.com/ZortexSenpai/fluentshin/refs/heads/main/index.css)
-2. Paste the contents in the Feishin custom CSS settings. You can find it under: `Settings` -> `Àdvanced` -> `Custom CSS`
+2. Paste the contents in the Feishin custom CSS settings. You can find it under: `Settings` -> `General` -> `Custom css`
 
 ## Roadmap
 - [x] Style the main page
