@@ -18,8 +18,6 @@
 
 
 
-
-
 /* Resizing the volume Slider based on window width */
 @media screen and (width >=1800px) {
     .fs-playerbar-module-right-grid-item .fs-playerbar-slider-module-root {
@@ -160,7 +158,7 @@
 /* Fixing the padding of the full screen player content */
 #default-layout .fs-full-screen-player-module-container {
     padding-left: 1rem !important;
-    padding-bottom: 9rem !important;
+    padding-bottom: 11rem !important;
     padding-right: 1rem !important;
     padding-top: 1rem !important;
     height: 100vh !important;
@@ -182,6 +180,7 @@
 
 #player-bar>.fs-playerbar-module-container {
     width: 100%;
+    border-top: unset;
 }
 
 /* ---------------------------- Drawer Queue ------------------------------ */
@@ -193,6 +192,11 @@
     z-index: 201 !important;
     top: 0 !important;
     right: 1rem !important;
+}
+
+.fs-popover-module-dropdown{
+    max-height: unset !important;
+    height: calc(100vh - 14rem) !important;
 }
 
 /* Fixing heights */
@@ -367,7 +371,6 @@ main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container {
     border-top-right-radius: unset;
 }
 
-/* fixing padding of the main content card */
 main.fs-animated-page-module-animated-page>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container>div>div {
     padding: 1rem;
 }
@@ -436,14 +439,33 @@ main .fs-feature-carousel-module-wrapper {
     max-height: unset;
 }
 
+/* fixing padding of the main content card */
+.fs-library-container-module-container>div{
+    padding-top: unset !important;
+    padding-inline: unset !important;
+}
+/* Fixing the padding of the main content */
+.fs-library-container-module-container>div>div:not(.fs-feature-carousel-module-carousel-container){
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+
+.fs-feature-carousel-module-carousel-item, .fs-feature-carousel-module-content{
+    min-height: unset;
+}
+
+
+
 main .fs-feature-carousel-module-carousel {
     height: 16rem;
     min-height: unset;
     max-height: unset;
+    padding: 0;
 }
 
 
-/* Fixing the positioning of the caroussell items to be centered */
+/* Fixing the positioning of the carousel items to be centered */
 main .fs-feature-carousel-module-wrapper>div>* {
     align-items: center;
 }
@@ -501,11 +523,19 @@ main>div>div:has(.fs-tabs-module-root) .fs-tabs-module-panel {
 
 /* fixing header height */
 div:has(.fs-album-artist-detail-content-module-content-container)>div>.fs-library-header-module-library-header {
-    padding: 1rem 1rem 2rem 1rem;
+    padding: 2rem 1rem 2rem 1rem !important;
     height: 20rem;
     min-height: unset;
     max-height: unset;
 }
+
+.fs-library-header-module-image-section {
+    padding-left: 1rem !important;
+}
+.fs-library-header-module-metadata-section{
+    padding-left: 1rem;
+}
+
 
 /* Removing background color from the song table */
 .fs-album-artist-detail-content-module-detail-container * {
@@ -525,6 +555,13 @@ div:has(.fs-album-artist-detail-content-module-content-container)>div>.fs-librar
 main>.fs-native-scroll-area-module-scroll-area {
     height: calc(100vh - 6rem);
 }
+
+
+/* ----------------------------------- Library Page --------------------------------------- */
+.fs-animated-page-module-animated-page:has(.fs-filter-bar-module-filter-bar) .fs-library-header-module-library-header {
+    padding: 2rem 0rem !important;
+}
+
 
 /* ----------------------------------- Album Page --------------------------------------- */
 
@@ -597,11 +634,13 @@ main:has(div>.fs-library-header-module-library-header) .fs-page-header-module-he
 main:has(div>.fs-album-detail-content-module-content-container) .fs-page-header-module-header,
 main:has(div>.fs-album-detail-content-module-content-container) .ag-header.ag-header-window-bar,
 
+.fs-server-selector-module-button-container>div, 
+
 .fs-context-menu-module-context-menu-button:hover,
 .fs-dropdown-menu-module-menu-item:hover {
     /* From https://css.glass */
     /* fancy workaround so the bg works with the built in varable to support light theme */
-    background-color: color-mix(in srgb, var(--theme-colors-background-alternate) 47%, transparent) !important;
+    background-color: color-mix(in srgb, var(--theme-colors-background-alternate) 60%, transparent) !important;
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8.1px);
@@ -693,13 +732,16 @@ main:has(div>.fs-album-detail-content-module-content-container) .ag-header.ag-he
 /* Setting the default background for the page */
 body,
 html {
-    background: none;
+    background: unset;
 }
 
 /* Fixing the height of the page */
-body>div:not(#root) {
+body, #root {
     height: 100%;
+    background-color: var(--theme-colors-background);
 }
+
+
 
 /* Fixing the height of the window bar */
 .fs-window-bar-module-windows-container {
