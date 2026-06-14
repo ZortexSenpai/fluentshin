@@ -11,14 +11,15 @@ Modern looking skin for feishin
 * [Additional](#additional)
 * [Versioning](#versioning)
 
-## Works on
+
+## Works on 
 
 | Works  | Version          | Notes                                                                                    |
 | ------ | ---------------- | ---------------------------------------------------------------------------------------- |
 |  Yes   | Windows          | Tested on Windows 11                                                                     |
-|  Yes   | Linux (AppImage) | Tested on Fedora (KDE) and CachyOS (Gnome)                                               |
-|  No    | Docker           | Not supported since the classes and ids of various elements are different                |
-|  No    | Browser Version  | Not supported since the classes and ids of various elements are different                |
+|  Yes   | Linux (AppImage/Aur) | Tested on Fedora (KDE) and CachyOS (Niri)                                               |
+|  Not Tested    | Docker           | Not Tested                |
+|  Yes    | Browser Version  | Tested briefly once                |
 
 ## Example screenshots
 
@@ -77,10 +78,7 @@ Modern looking skin for feishin
 2. Paste the contents in the Feishin custom CSS settings. You can find it under: `Settings` -> `General` -> `Custom css`
 
 ## Roadmap
-- [x] Style the main page
-- [x] Add white theme variant
-- [ ] Redesign the search bar in the top left corner
-- [ ] Make a bigger hover area for the full screen player to open the right panel
+- none atm
 
 ## Additional
 The skin is currently under development and will be updated occasionally when I'm feeling like it. If you have new ideas feel free to open a `[Feature Request]` in `Issues`.

@@ -1,686 +1,1395 @@
+/* ── OPTIONAL: hide the right panel of the full screen player ───────────
+   (Up Next / Related / Lyrics / Visualizer). To enable, remove the
+   comment markers around the two rules below — the artwork and controls
+   then center on screen.
+   NOTE: Feishin's sanitizer strips comments when you save custom CSS, so
+   keep this file as your master copy: uncomment HERE, then re-apply. */
+
 /*
- * Name: Fluentshin
- * Made by: Zortex
- */
-
-
-/* ------------------------------ Overrides ---------------------------------------------- */
-
-
-/* Hide the "right side" completely in the fullscreen view */
-/*
-.full-screen-player-queue-container {
-    display: none !important;
-}
 .fs-full-screen-player-module-responsive-container {
-    display: flex !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    justify-items: center;
+}
+
+.fs-full-screen-player-queue-module-grid-container {
+    display: none !important;
 }
 */
 
+/* ── OPTIONAL: disable the two-color accent gradient ────────────────────
+   The seekbar, volume slider, filled buttons, toggles, and the active
+   tab indicator fade from the info color into the accent. Remove the
+   comment markers below to use the flat accent color everywhere instead.
+   (html:root outranks the token definitions further down, so this
+   override wins no matter where it sits.) */
 
+/*
+html:root {
+    --fluentshin-grad: none;
+    --fluentshin-grad-vertical: none;
+    --fluentshin-grad-glass: none;
+}
+*/
 
-/* ------------------------------ End Overrides ------------------------------------------ */
+/* ── Adaptive design tokens ──────────────────────────────────────────── */
 
+:root {
+    /* sources — the active theme provides these */
+    --fluentshin-accent: var(--theme-colors-primary);
+    --fluentshin-accent-2: var(--theme-colors-state-info);
+    --fluentshin-fg: var(--theme-colors-foreground);
+    --fluentshin-bg: var(--theme-colors-background);
 
+    /* accent tints (hover fills, selections) */
+    --fluentshin-tint: color-mix(in srgb, var(--fluentshin-accent) 12%, transparent);
+    --fluentshin-tint-strong: color-mix(in srgb, var(--fluentshin-accent) 18%, transparent);
+    --fluentshin-selection: color-mix(in srgb, var(--fluentshin-accent) 35%, transparent);
 
+    /* hairlines & glows */
+    --fluentshin-border: color-mix(in srgb, var(--fluentshin-accent) 16%, transparent);
+    --fluentshin-border-soft: color-mix(in srgb, var(--fluentshin-accent) 9%, transparent);
+    --fluentshin-border-strong: color-mix(in srgb, var(--fluentshin-accent) 35%, transparent);
+    --fluentshin-glow: color-mix(in srgb, var(--fluentshin-accent) 45%, transparent);
+    --fluentshin-halo: color-mix(in srgb, var(--fluentshin-accent) 20%, transparent);
 
+    /* neutral chips (foreground-based → adapts to light themes) */
+    --fluentshin-chip: color-mix(in srgb, var(--fluentshin-fg) 5%, transparent);
+    --fluentshin-chip-border: color-mix(in srgb, var(--fluentshin-fg) 9%, transparent);
 
-/* Resizing the volume Slider based on window width */
-@media screen and (width >=1800px) {
-    .fs-playerbar-module-right-grid-item .fs-playerbar-slider-module-root {
-        width: calc(10rem * var(--mantine-scale)) !important;
+    /* glass surfaces (background-based → adapts to light themes) */
+    --fluentshin-glass: color-mix(in srgb, var(--fluentshin-bg) 72%, transparent);
+    --fluentshin-glass-deep: color-mix(in srgb, var(--fluentshin-bg) 88%, transparent);
+    --fluentshin-specular: color-mix(in srgb, var(--theme-colors-white) 9%, transparent);
+
+    /* gradients */
+    --fluentshin-grad: linear-gradient(90deg, var(--fluentshin-accent-2) 0%, var(--fluentshin-accent) 100%);
+    --fluentshin-grad-vertical: linear-gradient(180deg, var(--fluentshin-accent-2) 0%, var(--fluentshin-accent) 100%);
+    --fluentshin-grad-glass: linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--fluentshin-accent-2) 22%, transparent) 0%,
+        color-mix(in srgb, var(--fluentshin-accent) 28%, transparent) 100%
+    );
+    --fluentshin-ink: linear-gradient(
+        135deg,
+        var(--fluentshin-fg) 35%,
+        color-mix(in srgb, var(--fluentshin-fg) 45%, var(--fluentshin-accent)) 100%
+    );
+
+    /* scrollbars */
+    --theme-scrollbar-size: 10px;
+    --theme-scrollbar-handle-border-radius: 8px;
+    --theme-scrollbar-handle-background: color-mix(in srgb, var(--fluentshin-accent) 22%, transparent);
+    --theme-scrollbar-handle-hover-background: color-mix(in srgb, var(--fluentshin-accent) 40%, transparent);
+    --theme-scrollbar-handle-active-background: color-mix(in srgb, var(--fluentshin-accent) 55%, transparent);
+}
+
+/* ── Ambient fluentshin backdrop (painted on the layout root so it shows
+      behind the floating playerbar and glass panels) ─────────────────── */
+
+.fs-default-layout-module-layout {
+    background-color: var(--fluentshin-bg);
+    background-image:
+        radial-gradient(1100px 700px at 12% -8%, color-mix(in srgb, var(--fluentshin-accent) 14%, transparent), transparent 62%),
+        radial-gradient(900px 600px at 105% 0%, color-mix(in srgb, var(--fluentshin-accent-2) 9%, transparent), transparent 60%),
+        radial-gradient(1000px 800px at 80% 115%, color-mix(in srgb, var(--theme-colors-state-warning) 5%, transparent), transparent 60%);
+}
+
+/* soft drifting glow — static via the settings box (sanitizer strips
+   keyframes), animated when loaded through Stylus */
+.fs-main-content-module-main-content-container::after {
+    content: '';
+    position: absolute;
+    inset: -40%;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(40% 35% at 28% 30%, color-mix(in srgb, var(--fluentshin-accent) 8%, transparent), transparent 70%),
+        radial-gradient(35% 30% at 72% 65%, color-mix(in srgb, var(--fluentshin-accent-2) 6%, transparent), transparent 70%);
+    animation: fluentshin-drift 50s ease-in-out infinite alternate;
+    will-change: transform;
+}
+
+@keyframes fluentshin-drift {
+    0% {
+        transform: translate3d(-3%, -2%, 0) rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: translate3d(2%, 2%, 0) rotate(2deg) scale(1.05);
+    }
+
+    100% {
+        transform: translate3d(-1%, 3%, 0) rotate(-2deg) scale(1.02);
     }
 }
 
-@media screen and (width >=1000px) and (width < 1800px) {
-    .fs-playerbar-module-right-grid-item .fs-playerbar-slider-module-root {
-        width: calc(8rem * var(--mantine-scale)) !important;
-    }
-}
+/* ── Floating-bar layout ────────────────────────────────────────────────
+   Workaround for the 90px player-strip limitation: the full-size 90px
+   floating bar (at 12..102px from the bottom) needs more clearance than
+   Feishin's native 90px strip provides, so the strip is enlarged to
+   114px (12 + 90 + 12). The content area and sidebars then end exactly
+   12px above the bar. */
 
-@media screen and (width >=950px) and (width < 1100px) {
-    .fs-playerbar-module-right-grid-item .fs-playerbar-slider-module-root {
-        width: calc(7rem * var(--mantine-scale)) !important;
-    }
-}
-
-/* -------------------------- Full Screen Player --------------------------------------- */
-
-/* Rounding the album cover */
-.full-screen-player-image {
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-    border-top-right-radius: 1rem;
-    border-top-left-radius: 1rem;
-}
-
-/* Fixing the background image position */
-.fs-full-screen-player-module-background-image-overlay {
-    position: fixed;
-}
-
-/* Fixing the top position of the background image */
-#default-layout:has(.fs-window-bar-module-windows-container) .fs-full-screen-player-module-background-image-overlay {
-    top: 2rem;
-}
-
-/* Fixing the top position of the background image */
-#default-layout:not(:has(.fs-window-bar-module-windows-container)) .fs-full-screen-player-module-background-image-overlay {
-    top: 0;
-}
-
-
-
-/* Setting the grow of the album cover element to 1 so it uses the whole width */
-.full-screen-player-image-container {
-    flex-grow: 1;
-}
-
-
-/* Adding a top margin of the full screen player */
-#default-layout .fs-full-screen-player-module-responsive-container {
-    margin-top: 2rem;
-}
-
-/* Fixing the top positioning of the queue*/
-.fs-full-screen-player-queue-module-grid-container{
-    margin-top: 1rem;
-}
-
-/* Setting the styling of the queue in fullscreen */
-.fs-full-screen-player-queue-module-grid-container:before{
-    border-radius: 1rem;
-}
-
-/* Fixing the padding of the full screen player content */
-#default-layout .fs-full-screen-player-module-container {
-    padding-left: 1rem !important;
-    padding-bottom: 11rem !important;
-    padding-right: 1rem !important;
-    padding-top: 1rem !important;
-    height: 100vh !important;
-}
-
-/* ----------------------------- Player Bar ------------------------------- */
-
-/* Removing the "Preview Button" on on the album cover (bottom left) */
-#player-bar ._image_ly86j_1 button,
-#player-bar .fs-left-controls-module-image-wrapper button {
-    display: none;
-}
-
-/* Repositioning the player bar to make it look "floating" */
-#player-bar {
-    margin-left: 1rem;
-    margin-right: 1rem;
-}
-
-#player-bar>.fs-playerbar-module-container {
-    width: 100%;
-    border-top: unset;
-}
-
-/* ---------------------------- Drawer Queue ------------------------------ */
-
-/* Fixing the position of the drawer queue */
-#drawer-queue {
-    /* height: calc(100vh - 14rem) !important;
-    top: 7rem !important; */
-    z-index: 201 !important;
-    top: 0 !important;
-    right: 1rem !important;
-}
-
-.fs-popover-module-dropdown{
-    max-height: unset !important;
-    height: calc(100vh - 14rem) !important;
-}
-
-/* Fixing heights */
-#default-layout:has(.fs-window-bar-module-windows-container) #drawer-queue {
-    height: calc(100vh - 11rem) !important;
-}
-
-/* Fixing heights */
-#default-layout:not(:has(.fs-window-bar-module-windows-container)) #drawer-queue {
-    height: calc(100vh - 9rem) !important;
-}
-
-
-/* Fixing background colors for the glass effect */
-#drawer-queue *,
-.fs-context-menu-module-container *,
-.fs-popover-module-dropdown *,
-.fs-dropdown-menu-module-menu-dropdown * {
-    --ag-header-background-color: unset;
-    --ag-odd-row-background-color: unset;
-    --ag-background-color: unset;
-}
-
-/* Fixing background colors for the glass effect */
-#drawer-queue>div>div {
-    background-color: unset !important;
-    background-clip: unset;
-    background-origin: unset;
-    background-attachment: unset;
-    background-repeat: unset;
-    background-size: unset;
-    background-position-y: unset;
-    background-position-x: unset;
-    background-image: unset;
-    border-bottom-left-radius: unset;
-    border-bottom-right-radius: unset;
-    border-top-right-radius: unset;
-    border-top-left-radius: unset;
-}
-
-/* -------------------------------- Left Sidebar ------------------------------- */
-
-/* Fixing background of the sidebar for the glass effect */
-#left-sidebar .fs-sidebar-module-accordion-content,
-#left-sidebar .fs-accordion-module-panel,
-.fs-main-content-module-sidebar-expanded #sidebar {
-    background: none;
-}
-
-/* Adding a margin to the left sidebar*/
-#sidebar {
-    margin-left: 1rem;
-}
-
-/* fixing the max height */
-#default-layout:has(.fs-window-bar-module-windows-container) #sidebar {
-    max-height: calc(100vh - 11rem);
-}
-
-/* fixing the max height */
-#default-layout:not(:has(.fs-window-bar-module-windows-container)) #sidebar {
-    max-height: calc(100vh - 9rem);
-}
-
-
-/* Fixing the max height of the left sidebar */
-#left-sidebar {
-    max-height: calc(100vh - 9rem);
-}
-
-/* Fixing the size of the sidenav size changer */
-#sidebar .fs-resize-handle-module-handle-right,
-#sidebar .fs-resize-handle-module-handle-right::before {
-    max-height: calc(100vh - 10rem);
-}
-
-/* Fixing the back and forward arrow positions on a collapsed sidebar */
-#default-layout .fs-collapsed-sidebar-module-sidebar-container>div>div:first-child {
-    justify-content: center;
-}
-
-/* -------------------------------- Right Sidebar ------------------------------- */
-
-/* Resizing the right sidebar to match the card layout */
-#sidebar-queue {
-    /* Margin right doesn't work for whatever reason */
-    margin-left: -1rem;
-}
-
-/* Fixing heights */
-#default-layout:has(.fs-window-bar-module-windows-container) #sidebar-queue {
-    max-height: calc(100vh - 11rem);
-}
-
-/* Fixing heights */
-#default-layout:not(:has(.fs-window-bar-module-windows-container)) #sidebar-queue {
-    max-height: calc(100vh - 9rem);
-}
-
-
-#sidebar-queue * {
-    background-color: unset;
-    --ag-header-background-color: unset;
-    --ag-background-color: unset;
-    --ag-odd-row-background-color: unset;
-}
-
-/* ---------------------------- Header (Page Title) ------------------------------*/
-
-/* Fixing positioning of the header*/
-#main-content main .fs-page-header-module-header {
-    /* margin: 1rem 1rem 0 1rem; */
-    margin-right: 0rem;
-    min-height: 4rem;
-}
-
-.fs-library-header-bar-module-play-button-container {
-    margin-left: 1rem;
-}
-
-.fs-page-header-module-container {
-    padding: 0 !important;
-    height: 5rem;
-}
-
-
-.fs-animated-page-module-animated-page:has(.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container) .fs-page-header-module-header {
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-    box-shadow: unset !important;
-}
-
-
-/* Hiding the background image of the main title (used for the glass effect to work)*/
-#main-content main .fs-page-header-module-background-image,
-#main-content main .fs-page-header-module-background-image-overlay {
-    opacity: 0;
-}
-
-/* Fixing the padding of the main header */
-.fs-library-header-bar-module-header-container {
-    padding: 0 0 0 1rem;
-}
-
-/*Fixing the right margin of the search box */
-#main-content main .fs-page-header-module-title-wrapper .mantine-Group-root:has(.fs-text-input-module-root) {
-    margin-right: 1rem;
-}
-
-/* Fixing the width of the search box */
-#main-content main .fs-page-header-module-title-wrapper .mantine-Group-root>.fs-text-input-module-root {
-    width: unset !important;
-}
-
-/* Fixing the size of the "Top songs" header*/
-.fs-library-header-bar-module-header-container:has(.fs-library-header-bar-module-play-button-container) {
-    padding: 0;
-}
-
-.fs-page-header-module-header:has(.fs-library-header-bar-module-play-button-container) {
-    margin: 0;
-}
-
-
-/* ---------------------------- Main Content ------------------------------------*/
-
-/* Fixing height of the main content */
-main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container {
-    max-height: calc(100vh - 16rem);
-    /* Fixing the round corners of the main content */
-    border-top-left-radius: unset;
-    border-top-right-radius: unset;
-}
-
-main.fs-animated-page-module-animated-page>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container>div>div {
-    padding: 1rem;
-}
-
-/* Fixing the background color of the main table */
-main>.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container * {
-    --ag-header-background-color: unset;
-    --ag-background-color: unset;
-    --ag-odd-row-background-color: unset
-}
-
-.ag-header {
-    background: unset;
-}
-
-/* Filter panel */
-main>div>.fs-filter-bar-module-filter-bar {
-    /* Fixing the box shadow of the glass effect */
-    border-radius: unset;
-    box-shadow: unset;
-}
-
-/* Fixing main content width when the right sidebar is open */
-.fs-main-content-module-right-expanded main {
-    width: calc(100% - 1rem);
-}
-
-/* Removing unneccessary background color from main content -> is set in  #default-layout*/
-#main-content {
-    background: unset;
-    height: 100%;
-    gap: 1rem;
-}
-
-/* Adding the default background color for the main page */
 #default-layout {
-    background-color: var(--theme-colors-background);
-    gap: 1rem;
+    grid-template-rows: 0 calc(100dvh - 114px) 114px !important;
 }
 
-#default-layout:has(.fs-window-bar-module-windows-container) {
-    grid-template-rows: 2rem calc(-11rem + 100vh) 6rem;
+/* desktop variants with the 30px custom window bar */
+#default-layout.fs-default-layout-module-windows,
+#default-layout.fs-default-layout-module-macos {
+    grid-template-rows: 30px calc(100dvh - 144px) 114px !important;
 }
 
-#default-layout:not(:has(.fs-window-bar-module-windows-container)) {
-    grid-template-rows: 0 calc(-9rem + 100vh) 6rem;
-}
-
-/* Fixing the margin of smart playlist query editors -> needs to be complicated or will otherwise destroy normal playlist page */
-main:has(.fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container:last-child)>div:nth-child(2):not(:last-child)>div {
-    padding: 1rem !important;
-    margin: 0;
-    border-radius: unset;
-    box-shadow: unset;
-    width: unset !important;
-}
-
-/* ----------------------------------- Home Page --------------------------------------- */
-
-/* Sticking the carousel (image in the top of the homepage) to the top of the glass panel */
-main .fs-feature-carousel-module-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 16rem;
-    max-height: unset;
-}
-
-/* fixing padding of the main content card */
-.fs-library-container-module-container>div{
-    padding-top: unset !important;
-    padding-inline: unset !important;
-}
-/* Fixing the padding of the main content */
-.fs-library-container-module-container>div>div:not(.fs-feature-carousel-module-carousel-container){
-    padding-left: 2rem;
-    padding-right: 2rem;
-}
-
-
-.fs-feature-carousel-module-carousel-item, .fs-feature-carousel-module-content{
-    min-height: unset;
-}
-
-
-
-main .fs-feature-carousel-module-carousel {
-    height: 16rem;
-    min-height: unset;
-    max-height: unset;
-    padding: 0;
-}
-
-
-/* Fixing the positioning of the carousel items to be centered */
-main .fs-feature-carousel-module-wrapper>div>* {
-    align-items: center;
-}
-
-/* Fixing the positioning of the background image banner and setting a lower blur */
-main .fs-feature-carousel-module-wrapper .fs-feature-carousel-module-background-image {
-    width: 100%;
-    height: 100%;
-    filter: blur(12px);
-}
-
-/* Fixing the padding of the top element on the home page to be inline with other paddings */
-main>div>div>div:has(.fs-feature-carousel-module-wrapper) {
-    padding: 1rem !important;
-    padding-inline: unset !important;
-    margin-bottom: unset !important;
-}
-
-/* Fixing the top margin of the first div on the home page because of the absolute positioning */
-main>div>div>div:has(.fs-feature-carousel-module-wrapper)>.grid-carousel:first-of-type {
-    margin-top: 16rem;
-}
-
-/* Fixing the positioning of the next and previous buttons in the caroussel */
-main .fs-feature-carousel-module-wrapper .fs-feature-carousel-module-info-column>.mantine-Stack-root>div:has(button)>div {
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-}
-
-
-/* ----------------------------------- Settings Page --------------------------------------- */
-
-/* Fixing the bottom border radius of the settings title */
-main:has(.fs-tabs-module-root) .fs-page-header-module-header {
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-    box-shadow: unset !important;
-}
-
-/* Fixing the padding of the settings panel */
-main>div>div:has(.fs-tabs-module-root) {
-    padding: 1rem;
+/* guard: nothing inside the content area may paint below its bottom edge
+   (some versions/base themes force full-viewport heights on the body).
+   The right margin aligns the content edge with the floating bar's
+   12px inset. */
+.fs-main-content-module-main-content-container {
+    margin-right: 12px;
     overflow: hidden;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    background: transparent;
 }
 
-
-main>div>div:has(.fs-tabs-module-root) .fs-tabs-module-panel {
-    overflow-y: scroll;
+/* while the full screen player is open (it mounts inside the content
+   container and unmounts on close), drop the inset and the clip so its
+   background image can cover the entire window — the floating bar and
+   the ambient strip are covered by the player, which is the intent */
+.fs-main-content-module-main-content-container:has(.fs-full-screen-player-module-container) {
+    margin-right: 0;
+    overflow: visible;
 }
 
-/* ----------------------------------- Artist Page --------------------------------------- */
-
-/* fixing header height */
-div:has(.fs-album-artist-detail-content-module-content-container)>div>.fs-library-header-module-library-header {
-    padding: 2rem 1rem 2rem 1rem !important;
-    height: 20rem;
-    min-height: unset;
-    max-height: unset;
+/* the body must never exceed its container — but some builds force its
+   box to the stock strip line (100vh - 90px = 24px too tall) in a way
+   even !important height caps can't defeat. Padding is the one lever
+   nothing can override: shrink the CONTENT area by those 24px so the
+   scroller, page, table, and pagination all lay out inside the visible
+   region regardless of the box size. */
+.fs-main-content-module-main-content-body,
+#main-content .fs-main-content-module-main-content-body {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    padding-bottom: 24px !important;
 }
 
-.fs-library-header-module-image-section {
-    padding-left: 1rem !important;
-}
-.fs-library-header-module-metadata-section{
-    padding-left: 1rem;
-}
-
-
-/* Removing background color from the song table */
-.fs-album-artist-detail-content-module-detail-container * {
-    --ag-background-color: none;
-    --ag-odd-row-background-color: none;
+/* Feishin's page scroller hardcodes the stock strip height
+   (calc(100vh - 90px)) instead of inheriting from its parent — list pages
+   would be 24px too tall and get their last rows / pagination clipped.
+   Retune it to the 114px strip. */
+.fs-native-scroll-area-module-scroll-area {
+    height: calc(100vh - 114px) !important;
 }
 
-.fs-album-artist-detail-content-module-detail-container {
-    padding: 1rem;
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
+/* the inner sidenav container pins itself to the stock strip line
+   (calc(100vh - 90px)) just like the content body — same proven fix:
+   keep Feishin's own sizing and shrink the CONTENT area by the 24px
+   overshoot. (No max-height overrides: the window-bar element exists
+   with zero height in some builds, which makes :has()-based variants
+   match when they shouldn't.) */
+.fs-sidebar-module-container {
+    padding-bottom: 24px !important;
+    background: transparent;
 }
 
-
-
-/* Fixing the height of the scroll area */
-main>.fs-native-scroll-area-module-scroll-area {
-    height: calc(100vh - 6rem);
+/* the accordion content (playlist list etc.) paints its own solid
+   background over the sidenav glass — remove it */
+.fs-sidebar-module-accordion-content {
+    background: transparent;
 }
 
-
-/* ----------------------------------- Library Page --------------------------------------- */
-.fs-animated-page-module-animated-page:has(.fs-filter-bar-module-filter-bar) .fs-library-header-module-library-header {
-    padding: 2rem 0rem !important;
+/* same hardcoded assumption in the collapsed sidebar (90px strip + header) */
+.fs-collapsed-sidebar-module-sidebar-container {
+    max-height: calc(100vh - 143px);
 }
 
-
-/* ----------------------------------- Album Page --------------------------------------- */
-
-.fs-album-detail-content-module-content-container {
-    /* margin: 0 1rem; */
-    padding: 1rem;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+.fs-collapsed-sidebar-module-sidebar-container.fs-collapsed-sidebar-module-web,
+.fs-collapsed-sidebar-module-sidebar-container.fs-collapsed-sidebar-module-linux {
+    max-height: calc(100vh - 173px);
 }
 
-/* fixing header height */
-div:has(.fs-album-detail-content-module-content-container)>div>.fs-library-header-module-library-header {
-    padding: 1rem 1rem 2rem 1rem;
-    height: 20rem;
-    min-height: unset;
-    max-height: unset;
+/* glass side panels */
+.fs-left-sidebar-module-container {
+    background-color: color-mix(in srgb, var(--theme-colors-background-alternate) 60%, transparent);
+    border-right: 1px solid transparent;
+    border-right-color: var(--fluentshin-border-soft);
+    backdrop-filter: blur(24px) saturate(1.4);
 }
 
-/* Fixing the padding of the details */
-.fs-album-detail-content-module-detail-container {
-    padding: 0;
+.fs-right-sidebar-module-right-sidebar-container {
+    background-color: color-mix(in srgb, var(--theme-colors-background-alternate) 60%, transparent);
+    border-left: 1px solid transparent;
+    border-left-color: var(--fluentshin-border-soft);
+    backdrop-filter: blur(24px) saturate(1.4);
 }
 
-
-/* Fixing the background color of the tables */
-.fs-album-detail-content-module-content-container * {
-    --ag-background-color: none;
-    --ag-odd-row-background-color: none;
+/* full screen player covers the whole viewport; the floating bar stays
+   on top of it. The right padding aligns the queue/lyrics panel's edge
+   with the floating bar's 12px inset (stock is 2rem). */
+.fs-full-screen-player-module-container {
+    height: 100vh !important;
+    padding-right: 12px;
 }
 
-/* Fixing the background color of the table header */
-.fs-album-detail-content-module-content-container .ag-header {
-    background-color: unset;
+.fs-full-screen-player-module-container .fs-full-screen-player-module-responsive-container {
+    height: calc(100% - 250px);
 }
 
-/* Fixing the positioning of the bottom fade effect */
-.fs-album-detail-content-module-content-container .fs-library-background-overlay-module-root {
-    position: absolute;
-    top: 0;
-    left: 0;
+/* ── PLAYERBAR: floating liquid glass ───────────────────────────────── */
+
+#player-bar {
+    position: fixed;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    height: 90px;
+    background-color: var(--fluentshin-glass);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-border);
+    border-right-color: var(--fluentshin-border);
+    border-bottom-color: var(--fluentshin-border);
+    border-left-color: var(--fluentshin-border);
+    border-radius: 18px;
+    box-shadow:
+        0 16px 48px rgb(0 0 0 / 35%),
+        inset 0 1px 0 var(--fluentshin-specular);
+    backdrop-filter: blur(28px) saturate(1.6);
 }
 
-/* Fixing the header & filter bar when scrolling down */
-main:has(div>.fs-album-detail-content-module-content-container):has(.ag-header.ag-header-window-bar) .fs-page-header-module-header {
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+/* the stock playerbar content is hardcoded to 100vw — make it fill the
+   inset floating container instead, so the volume controls on the right
+   stay inside the bar */
+#player-bar .fs-playerbar-module-container {
+    width: 100%;
+    padding: 0 10px;
+    border-top: 0;
 }
 
-.ag-header.ag-header-window-bar {
-    margin-top: -1rem;
+/* the volume slider's width comes from Feishin's "volumeWidth" setting as
+   an inline 70px — enforce a comfortable minimum on desktop widths.
+   min-width beats the inline width, and the setting can still widen it.
+   Scoped to the right section so the seekbar is unaffected. */
+@media (min-width: 900px) {
+    #player-bar .fs-playerbar-module-right-grid-item .fs-playerbar-slider-module-root {
+        min-width: 110px;
+    }
 }
 
-
-
-/* ----------------------------------- Misc --------------------------------------- */
-
-/* Glass effect for certain elements */
-#drawer-queue,
-#sidebar-queue,
-#player-bar,
-.fs-main-content-module-sidebar-collapsed #sidebar,
-.fs-main-content-module-sidebar-expanded #left-sidebar,
-.fs-context-menu-module-container,
-.fs-animated-page-module-animated-page,
-.fs-popover-module-dropdown,
-.fs-dropdown-menu-module-menu-dropdown,
-/* Various headers */
-main:has(div>.fs-feature-carousel-module-wrapper) .fs-page-header-module-header,
-main:has(div>.fs-library-header-module-library-header) .fs-page-header-module-header,
-main:has(div>.fs-album-detail-content-module-content-container) .fs-page-header-module-header,
-main:has(div>.fs-album-detail-content-module-content-container) .ag-header.ag-header-window-bar,
-
-.fs-server-selector-module-button-container>div, 
-
-.fs-context-menu-module-context-menu-button:hover,
-.fs-dropdown-menu-module-menu-item:hover {
-    /* From https://css.glass */
-    /* fancy workaround so the bg works with the built in varable to support light theme */
-    background-color: color-mix(in srgb, var(--theme-colors-background-alternate) 60%, transparent) !important;
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(8.1px);
-    -webkit-backdrop-filter: blur(8.1px);
-
-    background-clip: initial;
-    background-origin: initial;
-    background-attachment: initial;
-    background-repeat: initial;
-    background-size: initial;
-    background-position-y: initial;
-    background-position-x: initial;
-    background-image: initial;
+/* gradient seekbar */
+.fs-playerbar-slider-module-bar {
+    background-color: var(--fluentshin-accent);
+    background-image: var(--fluentshin-grad);
 }
 
-
-/* Setting the genre badges to use the primary color as background and rounding them */
-.fs-badge-module-root {
-    color: var(--theme-colors-primary-contrast);
-    background-color: var(--theme-colors-primary-filled);
-    line-height: 1.2rem;
-    font-weight: 500;
-    font-size: 0.8rem;
-    padding-left: 0.5rem;
-    padding-bottom: 0.2rem;
-    padding-right: 0.5rem;
-    padding-top: 0.2rem;
-    border-bottom-left-radius: 100px;
-    border-bottom-right-radius: 100px;
-    border-top-right-radius: 100px;
-    border-top-left-radius: 100px;
+.fs-playerbar-slider-module-thumb {
+    transition: box-shadow 0.2s ease;
 }
 
-/* Rounding input fields*/
-.fs-text-input-module-root .mantine-Input-wrapper .fs-text-input-module-input,
-.fs-action-icon-module-root,
-.fs-select-module-input,
-.fs-number-input-module-input,
-.fs-color-input-module-input,
-.mantine-Popover-dropdown,
-.fs-multi-select-module-input,
-.fs-button-module-root {
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
+.fs-playerbar-slider-module-thumb:hover {
+    box-shadow: 0 0 0 6px var(--fluentshin-halo);
 }
 
-/* Rounding images of album covers on the player bar & main page */
-.fs-playerbar-module-container .fs-left-controls-module-image-wrapper .fs-left-controls-module-image .fs-image-module-unloader,
-.fs-poster-card-module-image-container,
-.fs-image-module-image {
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
+/* volume / generic sliders */
+.mantine-Slider-bar {
+    background-color: var(--fluentshin-accent);
+    background-image: var(--fluentshin-grad);
 }
 
+.fs-slider-module-thumb,
+.mantine-Slider-thumb {
+    transition: box-shadow 0.2s ease;
+}
 
-/* Fixing wrong background color of buttons */
-.fs-button-module-root {
+.fs-slider-module-thumb:hover,
+.mantine-Slider-thumb:hover {
+    box-shadow: 0 0 0 6px var(--fluentshin-halo);
+}
+
+/* main play button: liquid glass (stock forces a solid foreground-colored
+   circle with !important, so match its importance) */
+.fs-player-button-module-main {
+    background-color: var(--fluentshin-tint) !important;
+    background-image: var(--fluentshin-grad-glass) !important;
+    border-radius: 50%;
+    box-shadow:
+        inset 0 0 0 1px var(--fluentshin-border-strong),
+        inset 0 1px 0 var(--fluentshin-specular);
+    backdrop-filter: blur(8px) saturate(1.3);
+    transition: background-color 0.18s ease, box-shadow 0.25s ease;
+}
+
+.fs-player-button-module-main:hover {
+    background-color: var(--fluentshin-tint-strong) !important;
+    box-shadow:
+        inset 0 0 0 1px var(--fluentshin-border-strong),
+        inset 0 1px 0 var(--fluentshin-specular),
+        0 0 24px -4px var(--fluentshin-glow);
+}
+
+/* stock inverts the icon for the white circle — recolor for the glass */
+.fs-player-button-module-main svg {
+    color: var(--fluentshin-fg);
+    fill: var(--fluentshin-fg);
+}
+
+.fs-player-button-module-player-button {
+    transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+/* surrounding controls (previous / next / shuffle / repeat): these
+   buttons span their whole grid cell, so a hover background paints an
+   oversized rectangle — brighten the icon to the accent instead */
+.fs-player-button-module-secondary svg,
+.fs-player-button-module-tertiary svg {
+    transition: color 0.15s ease;
+}
+
+.fs-player-button-module-secondary:hover,
+.fs-player-button-module-tertiary:hover {
     background-color: transparent;
 }
 
-/* Fixing background colors of conext menus to not interfere with the glass effect */
-.fs-context-menu-module-context-menu-button:not(:hover) {
-    background-color: unset !important;
-    background-clip: unset !important;
-    background-origin: unset !important;
-    background-attachment: unset !important;
-    background-repeat: unset !important;
-    background-size: unset !important;
-    background-position-y: unset !important;
-    background-position-x: unset !important;
-    background-image: unset !important;
+.fs-player-button-module-secondary:hover svg,
+.fs-player-button-module-tertiary:hover svg {
+    color: var(--fluentshin-accent);
 }
 
-/* Fixing the mouse cursor when hovering the genre badges on the home top section */
-.fs-feature-carousel-module-carousel .fs-badge-module-root:hover {
+/* right-side icon buttons (favorite, lyrics, queue, volume): round
+   hover pill in the theme tint instead of the square default */
+#player-bar .mantine-ActionIcon-root {
+    border-radius: 999px;
+}
+
+#player-bar .mantine-ActionIcon-root:hover {
+    background-color: var(--fluentshin-tint);
+}
+
+/* playerbar album art */
+.fs-left-controls-module-image,
+.fs-left-controls-module-playerbar-image {
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 45%);
+}
+
+/* queue drawer pull-tab matches the glass bar */
+.fs-side-drawer-queue-module-queue-drawer {
+    background-color: var(--fluentshin-glass);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-border);
+    border-right-color: var(--fluentshin-border);
+    border-bottom-color: var(--fluentshin-border);
+    border-left-color: var(--fluentshin-border);
+    backdrop-filter: blur(24px) saturate(1.5);
+}
+
+/* detached queue (the popover opened from the playerbar's queue button —
+   identified by the queue table inside it). Mantine sizes and positions
+   it inline, so pin it with !important: right edge on the bar's 12px
+   inset, bottom 12px above the bar, and taller than the stock 600px. */
+.fs-popover-module-dropdown:has([class*='fs-item-table']) {
+    top: auto !important;
+    right: 12px !important;
+    bottom: 114px !important;
+    left: auto !important;
+    height: 75dvh !important;
+}
+
+/* the arrow no longer points at the button once the popover is pinned */
+.fs-popover-module-dropdown:has([class*='fs-item-table']) .mantine-Popover-arrow,
+.fs-popover-module-dropdown:has([class*='fs-item-table']) .fs-popover-module-arrow {
+    display: none;
+}
+
+/* ── FILTER BAR: modern pill toolbar (albums, playlists, songs…) ────── */
+
+.fs-filter-bar-module-filter-bar {
+    padding: 10px 12px;
+    background-color: color-mix(in srgb, var(--fluentshin-bg) 55%, transparent);
+    border-bottom: 1px solid transparent;
+    border-bottom-color: var(--fluentshin-border-soft);
+    backdrop-filter: blur(20px) saturate(1.4);
+}
+
+/* every control in the filter bar and library header becomes a pill */
+.fs-filter-bar-module-filter-bar button,
+.fs-library-header-bar-module-header-container button {
+    border-radius: 999px;
+}
+
+.fs-filter-bar-module-filter-bar input,
+.fs-library-header-bar-module-header-container input {
+    border-radius: 999px;
+}
+
+/* glass chips for the sort / filter / display controls */
+.fs-filter-bar-module-filter-bar .fs-button-module-root[data-variant='default'],
+.fs-filter-bar-module-filter-bar .fs-button-module-root[data-variant='subtle'],
+.fs-filter-bar-module-filter-bar .fs-button-module-root[data-variant='transparent'],
+.fs-filter-bar-module-filter-bar .fs-button-module-root[data-variant='outline'] {
+    color: var(--theme-colors-surface-foreground);
+    background-color: var(--fluentshin-chip);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-chip-border);
+    border-right-color: var(--fluentshin-chip-border);
+    border-bottom-color: var(--fluentshin-chip-border);
+    border-left-color: var(--fluentshin-chip-border);
+}
+
+.fs-filter-bar-module-filter-bar .fs-button-module-root[data-variant='default']:hover,
+.fs-filter-bar-module-filter-bar .fs-button-module-root[data-variant='subtle']:hover,
+.fs-filter-bar-module-filter-bar .fs-button-module-root[data-variant='transparent']:hover,
+.fs-filter-bar-module-filter-bar .fs-button-module-root[data-variant='outline']:hover {
+    color: var(--fluentshin-fg);
+    background-color: var(--fluentshin-tint-strong);
+    border-top-color: var(--fluentshin-border-strong);
+    border-right-color: var(--fluentshin-border-strong);
+    border-bottom-color: var(--fluentshin-border-strong);
+    border-left-color: var(--fluentshin-border-strong);
+}
+
+.fs-filter-bar-module-filter-bar .fs-text-input-module-input {
+    background-color: var(--fluentshin-chip);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-chip-border);
+    border-right-color: var(--fluentshin-chip-border);
+    border-bottom-color: var(--fluentshin-chip-border);
+    border-left-color: var(--fluentshin-chip-border);
+}
+
+.fs-filter-bar-module-filter-bar .mantine-Divider-root {
+    border-top-color: var(--fluentshin-border-soft);
+    border-left-color: var(--fluentshin-border-soft);
+}
+
+/* sidenav action bar (menu / back / forward + search): glass chips
+   matching the filter bar */
+.fs-action-bar-module-container .fs-button-module-root {
+    color: var(--theme-colors-surface-foreground);
+    background-color: var(--fluentshin-chip);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-chip-border);
+    border-right-color: var(--fluentshin-chip-border);
+    border-bottom-color: var(--fluentshin-chip-border);
+    border-left-color: var(--fluentshin-chip-border);
+    border-radius: 999px;
+}
+
+.fs-action-bar-module-container .fs-button-module-root:hover {
+    color: var(--fluentshin-fg);
+    background-color: var(--fluentshin-tint-strong);
+    border-top-color: var(--fluentshin-border-strong);
+    border-right-color: var(--fluentshin-border-strong);
+    border-bottom-color: var(--fluentshin-border-strong);
+    border-left-color: var(--fluentshin-border-strong);
+}
+
+.fs-action-bar-module-container .fs-text-input-module-input {
     cursor: pointer;
+    background-color: var(--fluentshin-chip);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-chip-border);
+    border-right-color: var(--fluentshin-chip-border);
+    border-bottom-color: var(--fluentshin-chip-border);
+    border-left-color: var(--fluentshin-chip-border);
+    border-radius: 999px;
+    transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.2s ease;
 }
 
-/* Fixing playlist bottom padding (right static sidenav) */
-#sidebar-queue .fs-virtual-grid-wrapper-module-virtual-grid-container .fs-virtual-grid-wrapper-module-virtual-grid-auto-sizer-container .fs-virtual-table-module-table-wrapper .ag-root-wrapper .ag-root-wrapper-body .ag-body-viewport {
-    padding-bottom: 100px;
+.fs-action-bar-module-container .fs-text-input-module-input:hover {
+    background-color: var(--fluentshin-tint);
+    border-top-color: var(--fluentshin-border-strong);
+    border-right-color: var(--fluentshin-border-strong);
+    border-bottom-color: var(--fluentshin-border-strong);
+    border-left-color: var(--fluentshin-border-strong);
 }
 
-
-/* Setting the default background for the page */
-body,
-html {
-    background: unset;
+/* form controls (selects, multi-selects, number inputs, segmented
+   controls) used by the pinned filter sidebar, the filters modal, and
+   settings: glass chips instead of solid surface boxes */
+.fs-select-module-input,
+.fs-multi-select-module-input,
+.fs-number-input-module-input,
+.fs-textarea-module-input,
+.fs-color-input-module-input {
+    background-color: var(--fluentshin-chip);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-chip-border);
+    border-right-color: var(--fluentshin-chip-border);
+    border-bottom-color: var(--fluentshin-chip-border);
+    border-left-color: var(--fluentshin-chip-border);
 }
 
-/* Fixing the height of the page */
-body, #root {
-    height: 100%;
-    background-color: var(--theme-colors-background);
+/* the accent color picker's dropdown becomes a glass panel like the
+   other overlays */
+.fs-color-input-module-dropdown {
+    background-color: var(--fluentshin-glass);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-border);
+    border-right-color: var(--fluentshin-border);
+    border-bottom-color: var(--fluentshin-border);
+    border-left-color: var(--fluentshin-border);
+    border-radius: 12px;
+    box-shadow:
+        0 24px 64px rgb(0 0 0 / 40%),
+        inset 0 1px 0 var(--fluentshin-specular);
+    backdrop-filter: blur(28px) saturate(1.5);
 }
 
+/* selected tags inside multi-selects become accent chips */
+.fs-multi-select-module-pill {
+    background-color: var(--fluentshin-tint);
+    border-radius: 999px;
+}
 
+.fs-segmented-control-module-root {
+    background-color: var(--fluentshin-chip);
+    border-radius: 10px;
+}
 
-/* Fixing the height of the window bar */
-.fs-window-bar-module-windows-container {
-    height: 2rem;
+.mantine-SegmentedControl-indicator {
+    background-color: var(--fluentshin-tint);
+    background-image: var(--fluentshin-grad-glass);
+    border-radius: 8px;
+}
+
+/* Feishin hides Mantine's indicator and paints the ACTIVE LABEL directly
+   with a square surface color — restore the rounding and give the active
+   segment the liquid-glass treatment: translucent accent gradient,
+   hairline ring, specular top highlight, backdrop blur */
+.fs-segmented-control-module-root .fs-segmented-control-module-label {
+    border-radius: 8px;
+    transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.2s ease;
+}
+
+.fs-segmented-control-module-root .fs-segmented-control-module-label[data-active='true'] {
+    color: var(--fluentshin-fg);
+    background-color: var(--fluentshin-tint);
+    background-image: var(--fluentshin-grad-glass);
+    border-radius: 8px;
+    box-shadow:
+        inset 0 0 0 1px var(--fluentshin-border-strong),
+        inset 0 1px 0 var(--fluentshin-specular);
+    backdrop-filter: blur(8px) saturate(1.3);
+}
+
+/* paginator buttons: glass chips, with the liquid-glass treatment on the
+   active page (matching the segmented controls) */
+.fs-pagination-module-root .fs-pagination-module-control {
+    background-color: var(--fluentshin-chip);
+    border-radius: 8px;
+    box-shadow: inset 0 0 0 1px var(--fluentshin-chip-border);
+    transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.2s ease;
+}
+
+.fs-pagination-module-root .fs-pagination-module-control:hover {
+    background-color: var(--fluentshin-tint);
+    box-shadow: inset 0 0 0 1px var(--fluentshin-border-strong);
+}
+
+.fs-pagination-module-root .fs-pagination-module-control[data-active] {
+    color: var(--fluentshin-fg);
+    background-color: var(--fluentshin-tint);
+    background-image: var(--fluentshin-grad-glass);
+    box-shadow:
+        inset 0 0 0 1px var(--fluentshin-border-strong),
+        inset 0 1px 0 var(--fluentshin-specular);
+    backdrop-filter: blur(8px) saturate(1.3);
+}
+
+.fs-pagination-module-root .fs-pagination-module-control:disabled,
+.fs-pagination-module-root .fs-pagination-module-control[data-disabled] {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+/* settings rows: action buttons (e.g. Custom CSS "Open Folder" / "Edit" /
+   "Save") become translucent glass chips. The doubled class outranks the
+   per-variant rules deterministically. */
+.fs-settings-option-module-row .fs-button-module-root.fs-button-module-root {
+    color: var(--theme-colors-surface-foreground);
+    background-color: var(--fluentshin-chip);
+    background-image: none;
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-chip-border);
+    border-right-color: var(--fluentshin-chip-border);
+    border-bottom-color: var(--fluentshin-chip-border);
+    border-left-color: var(--fluentshin-chip-border);
+    border-radius: 999px;
+}
+
+.fs-settings-option-module-row .fs-button-module-root.fs-button-module-root:hover {
+    color: var(--fluentshin-fg);
+    background-color: var(--fluentshin-tint-strong);
+    border-top-color: var(--fluentshin-border-strong);
+    border-right-color: var(--fluentshin-border-strong);
+    border-bottom-color: var(--fluentshin-border-strong);
+    border-left-color: var(--fluentshin-border-strong);
+}
+
+/* the pinned filter sidebar panel itself */
+.fs-list-with-sidebar-container-module-sidebar-container {
+    background-color: color-mix(in srgb, var(--fluentshin-fg) 3%, transparent);
+    border-right-color: var(--fluentshin-border-soft);
+}
+
+/* page-header play button (DefaultPlayButton = filled ActionIcon, e.g.
+   top of the Tracks page): translucent neutral glass matching the
+   sidenav back/forward chips. Mantine fills it via --ai-* variables,
+   so override those plus the direct styles. */
+.fs-play-button-module-text-button {
+    --ai-bg: var(--fluentshin-chip);
+    --ai-hover: var(--fluentshin-tint-strong);
+    --ai-color: var(--fluentshin-fg);
+    color: var(--fluentshin-fg) !important;
+    background-color: var(--fluentshin-chip) !important;
+    background-image: none !important;
+    box-shadow:
+        inset 0 0 0 1px var(--fluentshin-chip-border),
+        0 8px 24px -6px var(--fluentshin-halo);
+    backdrop-filter: blur(12px) saturate(1.4);
+    transition: background-color 0.18s ease, box-shadow 0.25s ease;
+}
+
+.fs-play-button-module-text-button:hover {
+    background-color: var(--fluentshin-tint-strong) !important;
+    box-shadow:
+        inset 0 0 0 1px var(--fluentshin-border-strong),
+        0 10px 32px -6px var(--fluentshin-glow);
+}
+
+/* round play buttons (page header, card overlays): translucent neutral
+   glass, matching the sidenav back/forward chips */
+.fs-play-button-module-play-button {
+    background-color: var(--fluentshin-chip);
+    background-image: none;
+    box-shadow:
+        inset 0 0 0 1px var(--fluentshin-chip-border),
+        0 8px 24px -6px var(--fluentshin-halo);
+    backdrop-filter: blur(12px) saturate(1.4);
+    transition: transform 0.2s ease, box-shadow 0.25s ease, background-color 0.18s ease;
+}
+
+/* the stock icon is black-on-white — recolor it for the glass fill */
+.fs-play-button-module-play-button svg {
+    stroke: var(--fluentshin-fg);
+}
+
+.fs-play-button-module-play-button.fs-play-button-module-fill svg {
+    fill: var(--fluentshin-fg);
+}
+
+/* no transform here: Feishin centers the album-card play overlay with
+   transform: translate(-50%, -50%), and it already scales on hover —
+   overriding transform would knock the button out of position */
+.fs-play-button-module-play-button:hover {
+    background-color: var(--fluentshin-tint-strong);
+    box-shadow:
+        inset 0 0 0 1px var(--fluentshin-border-strong),
+        0 10px 32px -6px var(--fluentshin-glow);
+}
+
+/* ── Micro-interactions ─────────────────────────────────────────────── */
+
+button {
+    transition: background-color 0.18s ease, color 0.18s ease,
+        border-color 0.18s ease, box-shadow 0.25s ease, opacity 0.15s ease,
+        scale 0.12s ease;
+}
+
+/* the standalone `scale` property composes with `transform`, so this
+   squish can't displace buttons that are positioned via transform */
+button:active {
+    scale: 0.96;
+}
+
+/* accent-filled controls share the seekbar's two-color gradient
+   (disable via the html:root override at the top of the file) */
+.fs-button-module-root[data-variant='filled'] {
+    background-image: var(--fluentshin-grad);
+    border-radius: 8px;
+}
+
+.fs-button-module-root[data-variant='filled']:hover {
+    box-shadow: 0 4px 24px -8px var(--fluentshin-glow);
+}
+
+/* toggles: gradient track when switched on (selector variants cover
+   different Mantine DOM structures; unmatched ones are inert) */
+.mantine-Switch-input:checked + .mantine-Switch-track,
+.mantine-Switch-input:checked ~ * .mantine-Switch-track,
+.mantine-Switch-root [data-checked] .mantine-Switch-track {
+    background-image: var(--fluentshin-grad);
+}
+
+.mantine-Checkbox-input:checked {
+    background-image: var(--fluentshin-grad);
+}
+
+a {
+    transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+/* sidebar links nudge right on hover */
+.fs-sidebar-module-accordion-content a {
+    border-radius: 8px;
+    transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.fs-sidebar-module-accordion-content a:hover {
+    transform: translateX(3px);
+}
+
+/* inputs glow when focused */
+.fs-text-input-module-input,
+.fs-textarea-module-input,
+.fs-multi-select-module-input,
+.fs-select-module-input,
+.fs-number-input-module-input,
+.fs-color-input-module-input {
+    border-radius: 8px;
+    transition: border-color 0.15s ease, box-shadow 0.2s ease, background-color 0.15s ease;
+}
+
+.fs-text-input-module-input:focus,
+.fs-textarea-module-input:focus,
+.fs-multi-select-module-input:focus-within,
+.fs-select-module-input:focus,
+.fs-number-input-module-input:focus,
+.fs-color-input-module-input:focus {
+    border-top-color: var(--fluentshin-accent);
+    border-right-color: var(--fluentshin-accent);
+    border-bottom-color: var(--fluentshin-accent);
+    border-left-color: var(--fluentshin-accent);
+    box-shadow: 0 0 0 3px var(--fluentshin-halo);
+}
+
+:focus-visible {
+    outline: 2px solid transparent;
+    outline-color: var(--fluentshin-glow);
+    outline-offset: 2px;
+}
+
+::selection {
+    background-color: var(--fluentshin-selection);
+}
+
+/* ── Cards: lift + glow on hover ────────────────────────────────────── */
+
+.fs-item-card-module-image-container,
+.fs-poster-card-module-image-container {
+    border-radius: 12px;
+    transition: transform 0.25s ease, box-shadow 0.3s ease;
+}
+
+.fs-item-card-module-image-container:hover,
+.fs-poster-card-module-image-container:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 14px 36px -10px rgb(0 0 0 / 50%),
+        0 0 28px -8px var(--fluentshin-glow);
+}
+
+.fs-item-card-module-image,
+.fs-poster-card-module-image {
+    border-radius: 12px;
+}
+
+/* hover-controls overlay on cards: subtle glass */
+.fs-item-card-controls-module-container,
+.fs-grid-card-controls-module-grid-card-controls-container {
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+}
+
+/* album art fades in (animated via Stylus; instant via settings box) */
+.fs-image-module-image {
+    animation: fluentshin-fade-in 0.3s ease;
+}
+
+@keyframes fluentshin-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ── Search palette (command palette) ─────────────────────────────────
+   Opened from the sidenav search. The expansion panels are accordions
+   that stock Feishin paints with the solid background color — turn them
+   into glass to match the modal they sit in. (Also applies to accordions
+   in settings and dialogs, keeping them consistent.) */
+
+.fs-accordion-module-control {
+    background-color: var(--fluentshin-chip);
+    border-radius: 10px;
+    transition: background-color 0.15s ease;
+}
+
+.fs-accordion-module-control:hover {
+    background-color: var(--fluentshin-tint);
+}
+
+.fs-accordion-module-panel {
+    background: transparent;
+}
+
+/* accordions carry borders on different elements depending on the build —
+   zero them everywhere in the subtree */
+.mantine-Accordion-root .mantine-Accordion-item,
+.mantine-Accordion-root .mantine-Accordion-control,
+.mantine-Accordion-root .mantine-Accordion-content,
+.mantine-Accordion-root .mantine-Accordion-panel,
+.fs-accordion-module-control,
+.fs-accordion-module-panel {
+    border: 0 !important;
+}
+
+.mantine-Accordion-root .mantine-Accordion-item {
+    background: transparent;
+}
+
+/* Mantine Paper draws a neutral gray border in dark mode via
+   --paper-border-color — re-theme it to the accent hairline, and remove
+   it entirely inside the search palette where the glass chips already
+   outline the panels */
+[data-mantine-color-scheme='dark'] .mantine-Paper-root,
+[data-mantine-color-scheme='light'] .mantine-Paper-root {
+    --paper-border-color: var(--fluentshin-border);
+}
+
+.fs-modal-module-content:has(input[cmdk-input]) .mantine-Paper-root {
+    --paper-border-color: transparent;
+}
+
+/* the palette's search input as a glass field with the focus glow */
+input[cmdk-input] {
+    padding: 10px 14px;
+    color: var(--fluentshin-fg);
+    background-color: var(--fluentshin-chip);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-chip-border);
+    border-right-color: var(--fluentshin-chip-border);
+    border-bottom-color: var(--fluentshin-chip-border);
+    border-left-color: var(--fluentshin-chip-border);
+    border-radius: 10px;
+    transition: border-color 0.15s ease, box-shadow 0.2s ease;
+}
+
+input[cmdk-input]:focus {
+    border-top-color: var(--fluentshin-accent);
+    border-right-color: var(--fluentshin-accent);
+    border-bottom-color: var(--fluentshin-accent);
+    border-left-color: var(--fluentshin-accent);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--fluentshin-halo);
+}
+
+/* results: accent selection, soft separators, themed shortcut keys */
+[cmdk-item][data-selected='true'] {
+    background-color: var(--fluentshin-tint-strong);
+}
+
+[cmdk-separator] {
+    background-color: var(--fluentshin-border-soft);
+}
+
+.mantine-Kbd-root {
+    background-color: var(--fluentshin-chip);
+    border-top-color: var(--fluentshin-chip-border);
+    border-right-color: var(--fluentshin-chip-border);
+    border-bottom-color: var(--fluentshin-chip-border);
+    border-left-color: var(--fluentshin-chip-border);
+}
+
+/* ── Liquid glass overlays: menus, modals, dropdowns ────────────────── */
+
+.fs-modal-module-content,
+.fs-dialog-module-root,
+.fs-select-module-dropdown,
+.fs-popover-module-dropdown,
+.fs-context-menu-module-content,
+.fs-dropdown-menu-module-menu-dropdown {
+    background-color: var(--fluentshin-glass) !important;
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-border);
+    border-right-color: var(--fluentshin-border);
+    border-bottom-color: var(--fluentshin-border);
+    border-left-color: var(--fluentshin-border);
+    backdrop-filter: blur(28px) saturate(1.5);
+    box-shadow:
+        0 24px 64px rgb(0 0 0 / 40%),
+        inset 0 1px 0 var(--fluentshin-specular);
+}
+
+.fs-context-menu-module-content,
+.fs-dropdown-menu-module-menu-dropdown,
+.fs-select-module-dropdown,
+.fs-popover-module-dropdown {
+    border-radius: 12px;
+}
+
+.fs-modal-module-content,
+.mantine-Modal-content {
+    border-radius: 16px;
+}
+
+/* roomier padding only for the search palette (identified by its cmdk
+   input) — other modals like settings keep their stock spacing */
+.fs-modal-module-content:has(input[cmdk-input]),
+.mantine-Modal-content:has(input[cmdk-input]) {
+    padding: 20px;
+}
+
+.fs-modal-module-header {
+    background-color: color-mix(in srgb, var(--fluentshin-bg) 40%, transparent) !important;
+}
+
+.mantine-Modal-overlay {
+    backdrop-filter: blur(4px);
+}
+
+.mantine-Badge-root {
+    background-color: var(--fluentshin-tint);
+}
+
+/* sticky song-table header becomes glass over the scrolling rows */
+.fs-item-table-list-module-sticky-header {
+    background-color: color-mix(in srgb, var(--fluentshin-bg) 80%, transparent);
+    backdrop-filter: blur(16px) saturate(1.4);
+}
+
+/* ── HOME PAGE ──────────────────────────────────────────────────────── */
+
+/* the hero carousel insets its tiles with a horizontal padding the other
+   Home sections don't have — remove it so the widths line up */
+.fs-feature-carousel-module-carousel {
+    padding: 0;
+}
+
+/* feature carousel hero tiles: large radius, ring, ambient glow over the
+   blurred album backdrop */
+.fs-feature-carousel-module-carousel-item {
+    border-radius: 20px;
+    box-shadow:
+        0 16px 48px -12px rgb(0 0 0 / 45%),
+        0 0 32px -10px color-mix(in srgb, var(--fluentshin-accent) 25%, transparent),
+        inset 0 0 0 1px var(--fluentshin-specular);
+}
+
+.fs-feature-carousel-module-title {
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 16px rgb(0 0 0 / 60%);
+}
+
+.fs-feature-carousel-module-metadata-section {
+    text-shadow: 0 1px 12px rgb(0 0 0 / 50%);
+}
+
+.fs-feature-carousel-module-album-image-container {
+    border-radius: 12px;
+    box-shadow: inset 0 0 0 1px var(--fluentshin-specular);
+}
+
+.fs-feature-carousel-module-badge {
+    border-radius: 999px;
+}
+
+/* hero nav arrows: glass pills */
+.fs-feature-carousel-module-nav-arrow-left,
+.fs-feature-carousel-module-nav-arrow-right {
+    background-color: var(--fluentshin-glass);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-border-strong);
+    border-right-color: var(--fluentshin-border-strong);
+    border-bottom-color: var(--fluentshin-border-strong);
+    border-left-color: var(--fluentshin-border-strong);
+    border-radius: 999px;
+}
+
+/* featured genres: glass chips with accent hover (keeps the per-genre
+   color stripe Feishin draws on the left edge) */
+.fs-featured-genres-module-genre-container {
+    background-color: var(--fluentshin-chip);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-chip-border);
+    border-right-color: var(--fluentshin-chip-border);
+    border-bottom-color: var(--fluentshin-chip-border);
+    border-left-color: var(--fluentshin-chip-border);
+    border-radius: 12px;
+    transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.fs-featured-genres-module-genre-container:hover {
+    background-color: var(--fluentshin-tint);
+    border-top-color: var(--fluentshin-border-strong);
+    border-right-color: var(--fluentshin-border-strong);
+    border-bottom-color: var(--fluentshin-border-strong);
+    border-left-color: var(--fluentshin-border-strong);
+}
+
+/* section titles (Recently Played, Newly Added…): gradient ink with a
+   small gradient tick, matching the detail-page headers */
+.fs-grid-carousel-module-custom-title-content h3 {
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    background-image: var(--fluentshin-ink);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.fs-grid-carousel-module-custom-title-content h3::before {
+    display: inline-block;
+    width: 4px;
+    height: 0.9em;
+    margin-right: 10px;
+    vertical-align: -0.08em;
+    content: '';
+    background-color: var(--fluentshin-accent);
+    background-image: var(--fluentshin-grad-vertical);
+    border-radius: 999px;
+}
+
+/* carousel nav buttons next to the titles: glass pills */
+.fs-grid-carousel-module-custom-title-container button {
+    background-color: var(--fluentshin-chip);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-chip-border);
+    border-right-color: var(--fluentshin-chip-border);
+    border-bottom-color: var(--fluentshin-chip-border);
+    border-left-color: var(--fluentshin-chip-border);
+    border-radius: 999px;
+}
+
+.fs-grid-carousel-module-custom-title-container button:hover {
+    background-color: var(--fluentshin-tint-strong);
+    border-top-color: var(--fluentshin-border-strong);
+    border-right-color: var(--fluentshin-border-strong);
+    border-bottom-color: var(--fluentshin-border-strong);
+    border-left-color: var(--fluentshin-border-strong);
+}
+
+/* page-position indicators become accent pills */
+.fs-grid-carousel-module-indicator-track {
+    background-color: color-mix(in srgb, var(--fluentshin-accent) 20%, transparent);
+    border-radius: 999px;
+}
+
+/* ── DETAIL PAGES: artist & album redesign ──────────────────────────────
+   Both pages share the LibraryHeader component, so most rules style both.
+   The artist page is detected via :has() on its content container, which
+   lets the artist portrait become circular while album covers stay square. */
+
+/* artwork: large radius, hairline ring, ambient glow */
+.fs-library-header-module-image-section > .fs-library-header-module-image {
+    border-radius: 16px;
+    box-shadow:
+        0 24px 60px -12px rgb(0 0 0 / 55%),
+        0 0 40px -8px color-mix(in srgb, var(--fluentshin-accent) 35%, transparent),
+        inset 0 0 0 1px var(--fluentshin-specular);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fs-library-header-module-image {
+    border-radius: 16px;
+}
+
+.fs-library-header-module-image-section:hover > .fs-library-header-module-image {
+    transform: scale(1.02);
+    box-shadow:
+        0 28px 70px -12px rgb(0 0 0 / 60%),
+        0 0 56px -8px var(--fluentshin-glow),
+        inset 0 0 0 1px var(--fluentshin-specular);
+}
+
+/* artist page: circular portrait with an accent halo */
+body:has(.fs-album-artist-detail-content-module-content-container)
+    .fs-library-header-module-image {
+    border-radius: 50%;
+}
+
+body:has(.fs-album-artist-detail-content-module-content-container) .item-image-placeholder {
+    border-radius: 50%;
+}
+
+body:has(.fs-album-artist-detail-content-module-content-container)
+    .fs-library-header-module-image-overlay {
+    right: 8%;
+    bottom: 8%;
+}
+
+/* big, tight display title with gradient ink */
+.fs-library-header-module-title {
+    font-size: clamp(2rem, 4dvw, 3.4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    background-image: var(--fluentshin-ink);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* "ALBUM" / release-type overline above the title */
+.fs-library-header-module-item-type {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+/* taller, airier hero on desktop widths */
+@media (min-width: 900px) {
+    .fs-library-header-module-library-header {
+        min-height: 400px;
+        padding: 6rem 2.5rem 2.5rem;
+    }
+}
+
+/* action row: pill buttons, glowing primary play button */
+.fs-library-header-module-library-header-menu button {
+    border-radius: 999px;
+}
+
+.fs-library-header-module-library-header-menu .fs-button-module-root[data-variant='transparent'] {
+    /* stock renders this one (Album/Artist Radio) at size="md" while its
+       Play/Next/Last siblings use the default size — normalize it */
+    --button-height: 36px;
+    --button-fz: 14px;
+    --button-padding-x: 18px;
+    height: 36px;
+    background-color: var(--fluentshin-chip);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-chip-border);
+    border-right-color: var(--fluentshin-chip-border);
+    border-bottom-color: var(--fluentshin-chip-border);
+    border-left-color: var(--fluentshin-chip-border);
+}
+
+.fs-library-header-module-library-header-menu
+    .fs-button-module-root[data-variant='transparent']:hover {
+    background-color: var(--fluentshin-tint-strong);
+    border-top-color: var(--fluentshin-border-strong);
+    border-right-color: var(--fluentshin-border-strong);
+    border-bottom-color: var(--fluentshin-border-strong);
+    border-left-color: var(--fluentshin-border-strong);
+}
+
+/* wide "Play / Next / Last" buttons (playlist & detail headers): stock
+   paints them as solid white pills with black text (some hovers carry
+   !important) — restyle as translucent glass chips */
+.fs-play-button-module-wide-text-button {
+    color: var(--fluentshin-fg) !important;
+    background-color: var(--fluentshin-chip) !important;
+    background-image: none !important;
+    box-shadow:
+        inset 0 0 0 1px var(--fluentshin-chip-border),
+        0 8px 24px -6px var(--fluentshin-halo);
+    backdrop-filter: blur(12px) saturate(1.4);
+    transition: transform 0.2s ease, box-shadow 0.25s ease, background-color 0.18s ease;
+}
+
+/* stock's hover is compiled with five specificity points AND !important
+   ([scheme] .wide-text-button.unthemed[data-variant]:hover) — the
+   repeated class pushes this rule above it deterministically */
+.fs-play-button-module-wide-text-button.fs-play-button-module-wide-text-button.fs-play-button-module-wide-text-button.fs-play-button-module-wide-text-button.fs-play-button-module-wide-text-button:hover,
+.fs-play-button-module-wide-text-button.fs-play-button-module-wide-text-button.fs-play-button-module-wide-text-button.fs-play-button-module-wide-text-button.fs-play-button-module-wide-text-button:active,
+.fs-play-button-module-wide-text-button.fs-play-button-module-wide-text-button.fs-play-button-module-wide-text-button.fs-play-button-module-wide-text-button.fs-play-button-module-wide-text-button:focus-visible {
+    translate: 0 -1px;
+    background-color: var(--fluentshin-tint-strong) !important;
+    box-shadow:
+        inset 0 0 0 1px var(--fluentshin-border-strong),
+        0 10px 32px -6px var(--fluentshin-glow);
+}
+
+/* stock colors the label and icon black for the white pill — recolor */
+.fs-play-button-module-wide-text-button-label {
+    color: var(--fluentshin-fg) !important;
+}
+
+.fs-play-button-module-wide-text-button svg,
+.fs-play-button-module-wide-text-button-label svg {
+    color: var(--fluentshin-fg) !important;
+    fill: var(--fluentshin-fg) !important;
+}
+
+/* genre / metadata pills become glass chips */
+.fs-pill-module-root {
+    background-color: var(--fluentshin-tint);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-border);
+    border-right-color: var(--fluentshin-border);
+    border-bottom-color: var(--fluentshin-border);
+    border-left-color: var(--fluentshin-border);
+    border-radius: 999px;
+    transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.fs-pill-module-root:hover {
+    background-color: var(--fluentshin-tint-strong);
+    border-top-color: var(--fluentshin-border-strong);
+    border-right-color: var(--fluentshin-border-strong);
+    border-bottom-color: var(--fluentshin-border-strong);
+    border-left-color: var(--fluentshin-border-strong);
+    transform: translateY(-1px);
+}
+
+/* album page: track list and metadata sidebar sit in glass panels */
+.fs-album-detail-content-module-songs-column {
+    padding: 6px;
+    background-color: var(--fluentshin-chip);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-chip-border);
+    border-right-color: var(--fluentshin-chip-border);
+    border-bottom-color: var(--fluentshin-chip-border);
+    border-left-color: var(--fluentshin-chip-border);
+    border-radius: 16px;
+}
+
+.fs-album-detail-content-module-metadata-column {
+    padding: 20px;
+    background-color: var(--fluentshin-chip);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-chip-border);
+    border-right-color: var(--fluentshin-chip-border);
+    border-bottom-color: var(--fluentshin-chip-border);
+    border-left-color: var(--fluentshin-chip-border);
+    border-radius: 16px;
+}
+
+.fs-album-detail-content-module-search-text-input {
+    background-color: var(--fluentshin-chip);
+    border-radius: 999px;
+}
+
+/* tables inside glass panels paint opaque alternate-row stripes with the
+   default background color, covering the glass — make the stripes
+   translucent there (album track list, fullscreen queue, detached queue
+   popover, and the side queue panel) */
+.fs-album-detail-content-module-songs-column
+    .fs-item-table-list-column-module-container.fs-item-table-list-column-module-alternate-row-even,
+.fs-full-screen-player-queue-module-queue-container
+    .fs-item-table-list-column-module-container.fs-item-table-list-column-module-alternate-row-even,
+.fs-popover-module-dropdown
+    .fs-item-table-list-column-module-container.fs-item-table-list-column-module-alternate-row-even,
+.fs-right-sidebar-module-right-sidebar-container
+    .fs-item-table-list-column-module-container.fs-item-table-list-column-module-alternate-row-even {
+    background-color: transparent;
+}
+
+.fs-album-detail-content-module-songs-column
+    .fs-item-table-list-column-module-container.fs-item-table-list-column-module-alternate-row-odd,
+.fs-full-screen-player-queue-module-queue-container
+    .fs-item-table-list-column-module-container.fs-item-table-list-column-module-alternate-row-odd,
+.fs-popover-module-dropdown
+    .fs-item-table-list-column-module-container.fs-item-table-list-column-module-alternate-row-odd,
+.fs-right-sidebar-module-right-sidebar-container
+    .fs-item-table-list-column-module-container.fs-item-table-list-column-module-alternate-row-odd {
+    background-color: color-mix(in srgb, var(--fluentshin-fg) 4%, transparent);
+}
+
+/* artist page: section dividers fade out in accent color */
+.fs-album-artist-detail-content-module-album-section-divider {
+    height: 1px;
+    background-color: transparent;
+    background-image: linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--fluentshin-accent) 45%, transparent),
+        color-mix(in srgb, var(--fluentshin-accent) 5%, transparent)
+    );
+}
+
+/* ── FULL SCREEN PLAYER ─────────────────────────────────────────────── */
+
+/* artwork: large radius, hairline ring, accent ambient glow */
+.fs-full-screen-player-image-module-image {
+    border-radius: 20px;
+    box-shadow:
+        0 32px 80px -16px rgb(0 0 0 / 65%),
+        0 0 48px -8px color-mix(in srgb, var(--fluentshin-accent) 35%, transparent),
+        inset 0 0 0 1px var(--fluentshin-specular);
+}
+
+/* song title under the artwork gets the display treatment */
+.fs-full-screen-player-image-module-metadata-container h1 {
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    background-image: var(--fluentshin-ink);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* right panel (Up Next / Related / Lyrics): liquid glass instead of a
+   flat background — the panel backdrop is painted by its ::before */
+.fs-full-screen-player-queue-module-grid-container::before {
+    background-color: var(--fluentshin-glass);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-border);
+    border-right-color: var(--fluentshin-border);
+    border-bottom-color: var(--fluentshin-border);
+    border-left-color: var(--fluentshin-border);
+    border-radius: 20px;
+    box-shadow:
+        0 24px 64px rgb(0 0 0 / 30%),
+        inset 0 1px 0 var(--fluentshin-specular);
+    backdrop-filter: blur(28px) saturate(1.5);
+}
+
+/* tab buttons become pills, active tab gets a gradient indicator */
+.full-screen-player-queue-header button {
+    border-radius: 999px;
+}
+
+.fs-full-screen-player-queue-module-active-tab-indicator {
+    height: 3px;
+    background-color: var(--fluentshin-accent);
+    background-image: var(--fluentshin-grad);
+    border-radius: 999px;
+}
+
+/* top controls (minimize / configure) as glass pills */
+.fs-full-screen-player-module-controls-container button {
+    border-radius: 999px;
+}
+
+/* visualizer song info card matches the glass language */
+.fs-full-screen-visualizer-module-song-info-backdrop {
+    background-color: var(--fluentshin-glass);
+    border: 1px solid transparent;
+    border-top-color: var(--fluentshin-border);
+    border-right-color: var(--fluentshin-border);
+    border-bottom-color: var(--fluentshin-border);
+    border-left-color: var(--fluentshin-border);
+    border-radius: 16px;
+    backdrop-filter: blur(20px) saturate(1.4);
+}
+
+/* ── Misc polish ────────────────────────────────────────────────────── */
+
+.fs-skeleton-module-skeleton {
+    border-radius: 10px;
+}
+
+.fs-page-header-module-container {
+    background-color: transparent;
+}
+
+/* respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .fs-main-content-module-main-content-container::after {
+        animation: none;
+    }
+
+    .fs-image-module-image {
+        animation: none;
+    }
+
+    button:active {
+        scale: none;
+    }
 }
