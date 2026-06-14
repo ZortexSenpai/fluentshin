@@ -26,50 +26,63 @@ Modern looking skin for feishin
 ### Dark Theme
 
 #### Home
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/99c02f63-6f29-41f3-a647-9c7f80cfbf2f" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/752fa376-c919-4f17-9c56-6c96a6bf1add" />
+
 
 #### Example Queue 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/28da3ae2-06d3-4488-befd-fec14ea14b90" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f9e0d815-b31d-423b-9393-cc891804e1b6" />
+
 
 #### Albums
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7d1bc0fe-87d6-41c4-a7b5-ca08ba231b87" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/98479d84-fb53-4e90-a2ba-b013a8ce85ba" />
+
 
 #### Tracks
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/884b5772-9465-40ee-8895-756710fd18d1" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/438bffb8-bed8-4205-abbf-d67c51de4bfc" />
+
 
 #### Artist
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9d0c6e15-ca0c-4002-912e-3f455fe801ad" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7cb8f7c1-6d36-4ec9-a876-96b7ac1a3313" />
+
 
 #### Full Screen Player
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/049a2fa8-e529-4c4b-9f24-a7fc9e3c015a" />
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7fab3d55-bdee-44eb-b323-af48367709a8" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/444b707e-0514-4124-bd7c-0b09ca83beec" />
+
 
 
 #### Settings
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/0bf868b8-7b06-473e-86ce-9821fd881bd8" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a2e6ba3d-8e6d-4f6d-afcc-af77bb888ae4" />
+
 
 ### White Theme
 
 #### Home
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/54041313-2f05-4db4-bfc2-35c55442e16e" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/71666ab7-0d83-4a12-87e5-7ef621a4a04a" />
+
 
 #### Example Queue
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/0523242c-8c2d-432d-aa52-ce8e98191098" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/94c8fc98-988a-4ee9-9be0-48b1f34f8cc1" />
+
 
 #### Example Albums
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a5f76174-9b73-4f9d-8b49-abf9b7c64fbf" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/fed502ab-6ab5-49f0-a781-70c198f1f024" />
+
 
 #### Tracks
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ef102eee-6509-44e9-8201-36d8392ba4a6" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/721ee965-1f9b-4286-b11e-391195c7d809" />
+
 
 #### Artist
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/b72efdaf-38de-40ef-98ef-3995e64a8bde" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/252476db-3466-40bd-8099-65fa1789f107" />
+
 
 #### Full Screen Player
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/8919febc-4e7c-4e0d-985d-c20b02bc549f" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/71a3cb5e-c2ec-4b3b-a7b0-854bda9624dd" />
+
 
 #### Settings
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/5f7be894-6b4a-40c3-b471-3305edfe26cc" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/89b9ef8f-7d22-4185-8948-0476dad48002" />
+
 
 
 ## How to install
