@@ -1314,6 +1314,12 @@ body:has(.fs-album-artist-detail-content-module-content-container)
         inset 0 0 0 1px var(--fluentshin-specular);
 }
 
+/* Fixing the bottom right buttons of the full screen player */
+.fs-full-screen-player-queue-module-controls-container {
+    bottom: 140px !important;
+}
+
+
 /* song title under the artwork gets the display treatment */
 .fs-full-screen-player-image-module-metadata-container h1 {
     font-weight: 900;
