@@ -602,6 +602,12 @@ html:root {
     box-shadow: none;
 }
 
+/* Fixing the Z-Index of the settings close button so it can be clicked*/
+.fs-modal-module-close {
+   z-index:1000 !important;
+}
+
+
 /* settings rows: action buttons (e.g. Custom CSS "Open Folder" / "Edit" /
    "Save") become translucent glass chips. The doubled class outranks the
    per-variant rules deterministically. */
