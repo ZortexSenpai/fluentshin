@@ -277,12 +277,47 @@ html:root {
 }
 
 /* the volume slider's width comes from Feishin's "volumeWidth" setting as
-   an inline 70px — enforce a comfortable minimum on desktop widths.
+   an inline 70px — enforce a comfortable minimum on wide windows.
    min-width beats the inline width, and the setting can still widen it.
-   Scoped to the right section so the seekbar is unaffected. */
-@media (min-width: 900px) {
+   Scoped to the right section so the seekbar is unaffected. Below 1344px
+   the wider slider no longer fits the right third of the bar. */
+@media (width >= 1344px) {
     #player-bar .fs-playerbar-module-right-grid-item .fs-playerbar-slider-module-root {
         min-width: 110px;
+    }
+}
+
+/* narrow windows (vertical monitors, split screen): the bar is split into
+   three equal columns, but the right-hand icon row never wraps, so once it
+   outgrows its third it spills left into the transport controls. Tighten
+   its side padding and drop the icon buttons to Feishin's xs size (the
+   icons keep their size, only the round hover pill shrinks). Mantine sets
+   the padding inline, hence the !important. */
+@media (width < 1224px) {
+    #player-bar .fs-playerbar-module-right-grid-item > .mantine-Flex-root {
+        padding-right: 4px !important;
+        padding-left: 4px !important;
+    }
+
+    #player-bar .fs-playerbar-module-right-grid-item .mantine-ActionIcon-root {
+        --ai-size-sm: var(--ai-size-xs);
+    }
+}
+
+/* safety net for anything narrower (or a wider volumeWidth setting): the
+   right column never gets narrower than its icon row, so the left and
+   center columns give up the space instead of the icons overlapping the
+   transport controls. Whenever the row fits, all three stay equal. */
+#player-bar .fs-playerbar-module-controls-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(max-content, 1fr);
+}
+
+/* ...which narrows the center column, so on small windows close the gaps
+   between the transport buttons (like Feishin's own mobile layout) to keep
+   the outer ones from being clipped */
+@media (width < 1000px) {
+    #player-bar .fs-center-controls-module-buttons-container {
+        gap: 0;
     }
 }
 
