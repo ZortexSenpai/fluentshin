@@ -2,6 +2,10 @@
 
 Modern looking skin for feishin
 
+# Other Projects
+Feel free to check out my other project Reverb. Its a complete custom cross platform player for Navidrome with parametric EQ support and much more.
+https://github.com/ZortexSenpai/Reverb
+
 
 ## Table of Contents
 * [Works on](#works-on)
