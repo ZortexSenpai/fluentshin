@@ -192,6 +192,17 @@ html:root {
     background: transparent;
 }
 
+/* the attached side queue (and sidebar lyrics/visualizer) shares the
+   content grid row, which the sidenav's stock max-height (100vh - 90px)
+   stretches 24px past the visible area once its playlist list is long
+   enough — the queue's last row ends up clipped. Same fix as the sidenav:
+   shrink the panel's content area by the 24px overshoot. The vertical
+   queue layout puts the panel in a fixed-height row that never
+   overshoots, so it's excluded. */
+.fs-right-sidebar-module-right-sidebar-container:not(.fs-right-sidebar-module-vertical-layout) {
+    padding-bottom: 24px;
+}
+
 /* the accordion content (playlist list etc.) paints its own solid
    background over the sidenav glass — remove it */
 .fs-sidebar-module-accordion-content {
